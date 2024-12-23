@@ -1,6 +1,8 @@
 #include <SFML/Window.hpp>
+#include <iostream>
 
 int main() {
+    std::cout << "test" << std::endl;
     sf::Window window(sf::VideoMode(800, 600), "My window");
 
     while (window.isOpen()) {
