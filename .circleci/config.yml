@@ -29,7 +29,10 @@ jobs:
           command: |
             git clone --branch 2.5.1 https://github.com/SFML/SFML.git
             mkdir -p SFML/build && cd SFML/build
-            cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+            cmake .. -DCMAKE_BUILD_TYPE=Release \
+               -DCMAKE_INSTALL_PREFIX=/usr \
+               -DSFML_BUILD_EXAMPLES=OFF \
+               -DSFML_USE_STATIC_LIBS=ON
             make -j$(nproc)
             make install
       - run:
