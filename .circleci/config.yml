@@ -1,39 +1,23 @@
 version: 2.1
 
 jobs:
-  build-and-test:
-    executor:
-      name: clang/14.0.0
-      docker:
-        - image: circleci/clang:14.0.0
+  build:
+    docker:
+      - image: ubuntu:22.04
     steps:
       - checkout
       - run:
-          name: Install Dependencies
+          name: Get and Update packages
           command: |
-            sudo apt-get update
-            sudo apt-get install -y cmake build-essential
+            apt-get update && apt-get upgrade
       - run:
-          name: Create Build Directory
-          command: mkdir -p build
-      - run:
-          name: Configure Project
+          name: Install SFML, CMake, GCC, G++
           command: |
+            apt install -y libsfml-dev cmake gcc g++
+      - run:
+          name: Build the project
+          command: |
+            mkdir -p build
             cd build
             cmake ..
-      - run:
-          name: Build Project
-          command: |
-            cd build
-            cmake --build .
-#      - run:
-#          name: Run Tests
-#          command: |
-#            cd build
-#            ctest
-
-workflows:
-  version: 2
-  test-workflow:
-    jobs:
-      - build-and-test
+            make
