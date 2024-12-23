@@ -1,0 +1,39 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    executor:
+      name: default
+      docker:
+        - image: circleci/clang:14.0.0
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y cmake build-essential
+      - run:
+          name: Create Build Directory
+          command: mkdir -p build
+      - run:
+          name: Configure Project
+          command: |
+            cd build
+            cmake ..
+      - run:
+          name: Build Project
+          command: |
+            cd build
+            cmake --build .
+      - run:
+          name: Run Tests
+          command: |
+            cd build
+            ctest
+
+workflows:
+  version: 2
+  test-workflow:
+    jobs:
+      - build-and-test
