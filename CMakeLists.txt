@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.22.1)
+project(doodle_jump)
+
+SET(CMAKE_CXX_FLAGS "-Wall")
+ADD_SUBDIRECTORY(src)
+INSTALL(TARGETS code DESTINATION bin)
+IF (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    SET (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
+ENDIF()
