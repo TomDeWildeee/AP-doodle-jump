@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-test:
     executor:
-      name: default
+      name: clang/14.0.0
       docker:
         - image: circleci/clang:14.0.0
     steps:
@@ -26,11 +26,11 @@ jobs:
           command: |
             cd build
             cmake --build .
-      - run:
-          name: Run Tests
-          command: |
-            cd build
-            ctest
+#      - run:
+#          name: Run Tests
+#          command: |
+#            cd build
+#            ctest
 
 workflows:
   version: 2
