@@ -40,3 +40,8 @@ jobs:
             mkdir -p build && cd build
             cmake ..
             make
+      - run:
+          name: Test
+          command: |
+            cd build
+            ./google_tests/Google_Tests_run
