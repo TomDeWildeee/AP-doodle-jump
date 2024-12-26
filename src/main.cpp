@@ -1,17 +1,8 @@
-#include <SFML/Window.hpp>
-#include <iostream>
+#include "headers/view/Game.h"
 
 int main() {
-    std::cout << "test" << std::endl;
-    sf::Window window(sf::VideoMode(800, 600), "My window");
-
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-    }
+    View::Game game;
+    game.run();
 
     return 0;
 }
