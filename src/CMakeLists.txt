@@ -9,7 +9,9 @@ elseif (UNIX)
 endif ()
 
 SET(SRC main.cpp
-        view/Game.cpp)
+        view/Game.cpp
+        logic/Subject.cpp
+        headers/logic/Observer.h)
 ADD_EXECUTABLE(code ${SRC})
 
 if (WIN32)
