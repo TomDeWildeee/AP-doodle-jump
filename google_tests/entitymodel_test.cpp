@@ -9,22 +9,29 @@ public:
     void update() override { updated = true; }
 };
 
+class TestEntityModel : public Logic::EntityModel {
+public:
+    explicit TestEntityModel(const std::pair<float, float>& coords) : EntityModel(coords) {}
+
+    void update() override {}
+};
+
 TEST(EntityModelTest, GetCoords) {
-    Logic::EntityModel entity({10.0f, 20.0f});
+    TestEntityModel entity({10.0f, 20.0f});
     auto coords = entity.getCoords();
     ASSERT_EQ(coords.first, 10.0f);
     ASSERT_EQ(coords.second, 20.0f);
 }
 
 TEST(EntityModelTest, GetVelocity) {
-    Logic::EntityModel entity({10.0f, 20.0f});
+    TestEntityModel entity({10.0f, 20.0f});
     auto velocity = entity.getVelocity();
     ASSERT_EQ(velocity.first, 0.0f);
     ASSERT_EQ(velocity.second, 0.0f);
 }
 
 TEST(EntityModelTest, SetCoords) {
-    Logic::EntityModel entity({10.0f, 20.0f});
+    TestEntityModel entity({10.0f, 20.0f});
     auto observer = std::make_shared<TestObserver>();
     entity.attach(observer);
 
@@ -36,7 +43,7 @@ TEST(EntityModelTest, SetCoords) {
 }
 
 TEST(EntityModelTest, SetVelocity) {
-    Logic::EntityModel entity({10.0f, 20.0f});
+    TestEntityModel entity({10.0f, 20.0f});
     auto observer = std::make_shared<TestObserver>();
     entity.attach(observer);
 
