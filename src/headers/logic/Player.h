@@ -8,7 +8,7 @@ namespace Logic {
 class Player : public EntityModel {
 public:
     explicit Player(const std::pair<float, float>& coords);
-    void update() override;
+    void update(float deltaTime) override;
     void moveLeft();
     void moveRight();
     // I don't know if force is high or low enough, should be tested

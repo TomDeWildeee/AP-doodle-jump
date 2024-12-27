@@ -13,7 +13,7 @@ class TestEntityModel : public Logic::EntityModel {
 public:
     explicit TestEntityModel(const std::pair<float, float>& coords) : EntityModel(coords) {}
 
-    void update() override {}
+    void update(float deltaTime) override {}
 };
 
 TEST(EntityModelTest, GetCoords) {

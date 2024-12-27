@@ -4,12 +4,11 @@ namespace Logic {
 
 Player::Player(const std::pair<float, float>& coords) : EntityModel(coords) {}
 
-void Player::update() {
-    // should add time here later instead of 2
-    velocity.second += gravity * 2;
+void Player::update(float deltaTime) {
+    velocity.second += gravity * deltaTime;
 
-    coords.first += velocity.first * 2;
-    coords.second += velocity.second * 2;
+    coords.first += velocity.first * deltaTime;
+    coords.second += velocity.second * deltaTime;
 
     notify();
 }

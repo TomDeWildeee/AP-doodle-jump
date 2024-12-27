@@ -10,7 +10,7 @@ public:
     explicit EntityModel(const std::pair<float, float>& coords);
     ~EntityModel() override;
 
-    virtual void update() = 0;
+    virtual void update(float deltaTime) = 0;
 
     [[nodiscard]] const std::pair<float, float>& getCoords() const;
     [[nodiscard]] const std::pair<float, float>& getVelocity() const;
