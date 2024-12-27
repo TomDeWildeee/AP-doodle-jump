@@ -12,7 +12,8 @@ SET(SRC main.cpp
         view/Game.cpp
         logic/Subject.cpp
         headers/logic/Observer.h
-        logic/EntityModel.cpp)
+        logic/EntityModel.cpp
+        logic/Player.cpp)
 ADD_EXECUTABLE(code ${SRC})
 
 if (WIN32)
