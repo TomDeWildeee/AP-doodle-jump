@@ -10,13 +10,13 @@ class Platform : public EntityModel {
 public:
     Platform(const std::pair<float, float>& coords, PlatformType type);
     void update(float deltaTime) override;
+    void deActivate();
 
     [[nodiscard]] PlatformType getType() const;
     [[nodiscard]] bool isActive() const;
-    void deActivate();
-    
+    [[nodiscard]] float getAlpha() const;
+
     // For disappearing platforms
-    float getAlpha() const;
 
 private:
     PlatformType type;
