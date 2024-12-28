@@ -22,6 +22,11 @@ SET(SRC main.cpp
         logic/Stopwatch.cpp
         logic/Camera.cpp
         logic/Score.cpp
+        view/EntityView.cpp
+        view/PlayerView.cpp
+        view/PlatformView.cpp
+        view/BonusView.cpp
+        view/BGTileView.cpp
 )
 ADD_EXECUTABLE(code ${SRC})
 

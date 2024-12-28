@@ -1,0 +1,15 @@
+#include "../headers/view/EntityView.h"
+
+namespace View {
+
+EntityView::EntityView(const std::shared_ptr<Logic::EntityModel>& model) : model(model) {}
+
+EntityView::~EntityView() = default;
+
+void EntityView::update() {
+    if (auto modelPtr = model.lock()) {
+        updateView(modelPtr);
+    }
+}
+
+} // namespace View
