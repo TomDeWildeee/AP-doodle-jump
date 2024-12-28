@@ -16,7 +16,9 @@ SET(SRC main.cpp
         logic/Player.cpp
         logic/Platform.cpp
         logic/BGTile.cpp
-        logic/Bonus.cpp)
+        logic/Bonus.cpp
+        logic/Random.cpp
+)
 ADD_EXECUTABLE(code ${SRC})
 
 if (WIN32)
