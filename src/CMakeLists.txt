@@ -29,6 +29,7 @@ SET(SRC main.cpp
         view/BGTileView.cpp
         view/ConcreteFactory.cpp
         logic/World.cpp
+        view/GameController.cpp
 )
 ADD_EXECUTABLE(code ${SRC})
 

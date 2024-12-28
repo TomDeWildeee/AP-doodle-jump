@@ -54,8 +54,15 @@ void World::update() {
 
 // Most of the values in here are randomly found online, so they might not be the best
 void World::generatePlatforms(float fromY, float toY) {
-    Random random = Random::getInstance();
-    // TODO: Make the platform generation more dynamic
+    float y = fromY;
+    while (y > toY) {
+        float x = Random::getInstance().getFloat(0, width);
+        float aFloat = Random::getInstance().getFloat(toY - height, fromY + height);
+        auto type = static_cast<PlatformType>(Random::getInstance().getInt(0, 3));
+        std::shared_ptr<Platform> platform = factory->createPlatform({x, aFloat}, type);
+        platforms.push_back(platform);
+        y = aFloat;
+    }
 }
 
 } // namespace Logic
