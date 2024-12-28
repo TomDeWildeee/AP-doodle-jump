@@ -27,6 +27,7 @@ SET(SRC main.cpp
         view/PlatformView.cpp
         view/BonusView.cpp
         view/BGTileView.cpp
+        view/ConcreteFactory.cpp
 )
 ADD_EXECUTABLE(code ${SRC})
 
