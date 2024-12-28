@@ -2,6 +2,8 @@
 
 namespace Logic {
 
+Score::Score() = default;
+
 Score& Score::getInstance() {
     static Score instance;
     return instance;

@@ -5,7 +5,7 @@ namespace Logic {
 BGTile::BGTile(const std::pair<float, float>& coords) : EntityModel(coords) {}
 
 void BGTile::update(float deltaTime) {
-    // Should probably be empty, cause background are not gonna move?
+    // Should probably be empty, cause background is not gonna move?
 }
 
 } // namespace Logic

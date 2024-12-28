@@ -7,7 +7,7 @@ namespace Logic {
 
 class BGTile : public EntityModel {
 public:
-    BGTile(const std::pair<float, float>& coords);
+    explicit BGTile(const std::pair<float, float>& coords);
     void update(float deltaTime) override;
 };
 
