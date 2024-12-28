@@ -8,6 +8,7 @@ namespace Logic {
 
 class Score : public Observer {
 public:
+    // Also made score a singleton
     static Score& getInstance();
 
     void update() override;
