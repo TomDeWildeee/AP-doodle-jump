@@ -47,6 +47,11 @@ void Score::onPlatformReuse(PlatformType platformType) {
         break;
     }
     score = std::max(score, highScore);
+    highScore = std::max(score, highScore);
 }
+
+int Score::getScore() const { return score; }
+
+int Score::getHighScore() const { return highScore; }
 
 } // namespace Logic

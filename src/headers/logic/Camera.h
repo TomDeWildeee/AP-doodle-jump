@@ -8,8 +8,8 @@ public:
     Camera(float width, float height);
     void update(float newY);
     void worldToScreen(float& x, float& y) const;
-    bool isVisible(float y) const;
-    float getY() const;
+    [[nodiscard]] bool isVisible(float y) const;
+    [[nodiscard]] float getY() const;
 
 private:
     float width;
