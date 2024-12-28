@@ -1,7 +1,11 @@
 #ifndef DOODLE_JUMP_GAME_H
 #define DOODLE_JUMP_GAME_H
 
+#include "../logic/World.h"
+#include "ConcreteFactory.h"
+#include "GameController.h"
 #include "SFML/Graphics.hpp"
+#include <memory>
 
 namespace View {
 
@@ -18,6 +22,10 @@ private:
     void handleGameOver();
 
     sf::RenderWindow window;
+    std::shared_ptr<Logic::World> world;
+    std::unique_ptr<GameController> gameController;
+    std::shared_ptr<ConcreteFactory> factory;
+
     sf::Font font;
     sf::Text gameOverText;
     sf::Text scoreText;

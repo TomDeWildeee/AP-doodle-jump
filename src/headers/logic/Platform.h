@@ -23,9 +23,9 @@ private:
     bool active = true;
     float alpha = 1.0f;
     float initialX;
-    float moveDistance = 1.0f;
-    float moveSpeed = 1.0f;
-    float disappearTimer = 0.01f;
+    float moveDistance = 100.0f;
+    float moveSpeed = 100.0f;
+    float disappearTimer = 3.0f;
 };
 
 } // namespace Logic

@@ -30,6 +30,8 @@ void GameController::handleInput(const sf::Event& event) {
             player->moveLeft();
         } else if (event.key.code == sf::Keyboard::Right || event.key.code == sf::Keyboard::D) {
             player->moveRight();
+        } else if (event.key.code == sf::Keyboard::Space) {
+            player->jump();
         } else {
             std::pair<float, float> newVelocity = {0, player->getVelocity().second};
             player->setVelocity(newVelocity);

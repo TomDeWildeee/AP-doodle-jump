@@ -20,14 +20,13 @@ public:
 
 private:
     // Test values, not sure if values make sense
-    float moveSpeed = 0.1f;
-    float jumpForce = -0.5f;
-    float gravity = 0.01f;
+    float moveSpeed = 300.0f;
+    float jumpForce = -400.0f;
+    float gravity = 800.0f;
     float jetpackForce = -0.2f;
     float jetpackDuration = 5.0f;
     float jetpackTimer = 0.0f;
 
-    bool jumping = false;
     bool jetpack = false;
     bool jetpackActive = false;
 };

@@ -2,6 +2,7 @@
 #define DOODLE_JUMP_CONCRETEFACTORY_H
 
 #include "../logic/EntityFactory.h"
+#include "EntityView.h"
 namespace View {
 
 class ConcreteFactory : public Logic::EntityFactory {
@@ -11,6 +12,11 @@ public:
                                                     Logic::PlatformType type) override;
     std::shared_ptr<Logic::BGTile> createBGTile(const std::pair<float, float>& coords) override;
     std::shared_ptr<Logic::Bonus> createBonus(const std::pair<float, float>& coords, Logic::BonusType type) override;
+
+    [[nodiscard]] const std::vector<std::shared_ptr<EntityView>>& getViews() const;
+
+private:
+    std::vector<std::shared_ptr<EntityView>> views;
 };
 
 } // namespace View
