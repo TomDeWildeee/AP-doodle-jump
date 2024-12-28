@@ -20,6 +20,7 @@ SET(SRC main.cpp
         logic/Random.cpp
         logic/Stopwatch.cpp
         logic/Camera.cpp
+        logic/Score.cpp
 )
 ADD_EXECUTABLE(code ${SRC})
 
