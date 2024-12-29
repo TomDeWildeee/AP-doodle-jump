@@ -2,6 +2,7 @@
 #include "../headers/logic/Random.h"
 #include "../headers/logic/Score.h"
 #include "../headers/logic/Stopwatch.h"
+#include "../headers/view/PlatformView.h"
 #include <algorithm>
 #include <iostream>
 
@@ -14,7 +15,8 @@ World::World(float width, float height, const std::shared_ptr<EntityFactory>& fa
 
     camera = std::make_unique<Camera>(width, height);
 
-    //    generatePlatforms(height, 0);
+    platforms.push_back(factory->createPlatform({width / 2, height / 2}, PlatformType::NORMAL));
+    generatePlatforms(height, 0);
 }
 
 void World::update() {
@@ -22,6 +24,13 @@ void World::update() {
     float deltaTime = stopwatch.getDeltaTime();
 
     player->update(deltaTime);
+
+    float playerX = player->getCoords().first;
+    if (playerX < 0) {
+        player->setCoords({width, player->getCoords().second});
+    } else if (playerX > width) {
+        player->setCoords({0, player->getCoords().second});
+    }
 
     for (auto& platform : platforms) {
         platform->update(deltaTime);
@@ -37,24 +46,31 @@ void World::update() {
 
     camera->update(player->getCoords().second);
 
-    checkCollisions();
+    float highestY = 0;
+    if (!platforms.empty()) {
+        highestY = platforms[0]->getCoords().second;
+        for (const auto& platform : platforms) {
+            if (platform->getCoords().second < highestY) {
+                highestY = platform->getCoords().second;
 
-    // TODO: fix this
+                Score& score = Score::getInstance();
+                score.onNewHeight(highestY);
+            }
+        }
+    }
 
     float cameraY = camera->getY();
-    if (cameraY - height / 2 < highestY) {
-        generatePlatforms(highestY, cameraY - height / 2);
-        generateBGTiles(highestY, cameraY - height / 2);
+    float topOfView = cameraY - height / 2;
 
-        highestY = cameraY - height / 2;
-
-        Score::getInstance().onNewHeight(highestY);
+    if (highestY > topOfView - 300) {
+        generatePlatforms(highestY - 240, topOfView - 800);
     }
+
+    checkCollisions();
 
     cleanup();
 }
 
-// TODO: fix this
 void World::checkCollisions() {
     for (const auto& platform : platforms) {
         if (!platform->isActive())
@@ -66,43 +82,62 @@ void World::checkCollisions() {
         float platY = platform->getCoords().second;
 
         if (player->getVelocity().second > 0) {
-            const float PLAYER_WIDTH = 40.0f;
-            const float PLAYER_HEIGHT = 40.0f;
-            const float PLATFORM_WIDTH = 60.0f;
-            const float PLATFORM_HEIGHT = 20.0f;
 
-            if (px + PLAYER_WIDTH / 2 > platX - PLATFORM_WIDTH / 2 &&
-                px - PLAYER_WIDTH / 2 < platX + PLATFORM_WIDTH / 2 &&
-                py + PLAYER_HEIGHT / 2 > platY - PLATFORM_HEIGHT / 2 &&
-                py + PLAYER_HEIGHT / 2 < platY + PLATFORM_HEIGHT / 2) {
+            float verticalDistance = std::abs(py - platY);
+            float horizontalDistance = std::abs(px - platX);
 
-                player->setCoords({px, platY - PLATFORM_HEIGHT / 2 - PLAYER_HEIGHT / 2});
+            if (verticalDistance < 20 && horizontalDistance < 60) {
+                player->setCoords({px, platY - 30});
+                player->setVelocity({player->getVelocity().first, 0});
                 player->jump();
 
                 if (platform->getType() == PlatformType::BREAKABLE) {
                     platform->deActivate();
                 }
+
+                break;
             }
         }
     }
 }
 
+// Took me ages to figure out and get good
 void World::generatePlatforms(float fromY, float toY) {
-    //    Random random = Random::getInstance();
+    Random& random = Random::getInstance();
 
-    platforms.push_back(factory->createPlatform({300, 300}, PlatformType::NORMAL));
+    const float VERTICAL_SPACING = random.getFloat(100.0f, 200.0f);
+    std::cout << VERTICAL_SPACING << std::endl;
+
+    const float LEFT_EDGE = 100.0f;
+    const float RIGHT_EDGE = width - 100.0f;
+
+    for (float y = fromY; y > toY; y -= VERTICAL_SPACING) {
+        int generateLeft = random.getInt(0, 1);
+        float x;
+        if (generateLeft == 1) {
+            x = random.getFloat(LEFT_EDGE, width / 2 - 50.0f);
+        } else {
+            x = random.getFloat(width / 2 + 50.0f, RIGHT_EDGE);
+        }
+
+        platforms.push_back(factory->createPlatform({x, y}, PlatformType::NORMAL));
+    }
 }
 
 void World::cleanup() {
-    auto isOffScreen = [this](const std::shared_ptr<EntityModel>& entity) {
-        return !camera->isVisible(entity->getCoords().second);
-    };
+    float cameraY = camera->getY();
+    float bufferZone = height / 2 + 200.0f;
 
-    platforms.erase(std::remove_if(platforms.begin(), platforms.end(), isOffScreen), platforms.end());
+    platforms.erase(std::remove_if(platforms.begin(), platforms.end(),
+                                   [cameraY, bufferZone](const std::shared_ptr<Platform>& platform) {
+                                       if (!platform->isActive())
+                                           return true;
+                                       auto y = platform->getCoords().second;
+                                       return y > cameraY + bufferZone;
+                                   }),
+                    platforms.end());
 
-    bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(), isOffScreen), bonuses.end());
-
-    bgTiles.erase(std::remove_if(bgTiles.begin(), bgTiles.end(), isOffScreen), bgTiles.end());
+    factory->cleanupViews(cameraY + bufferZone);
 }
 
 bool World::shouldGenerateBonus() {

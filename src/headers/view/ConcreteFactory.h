@@ -13,7 +13,8 @@ public:
     std::shared_ptr<Logic::BGTile> createBGTile(const std::pair<float, float>& coords) override;
     std::shared_ptr<Logic::Bonus> createBonus(const std::pair<float, float>& coords, Logic::BonusType type) override;
 
-    [[nodiscard]] const std::vector<std::shared_ptr<EntityView>>& getViews() const;
+    std::vector<std::shared_ptr<EntityView>>& getViews();
+    void cleanupViews(float maxY) override;
 
 private:
     std::vector<std::shared_ptr<EntityView>> views;

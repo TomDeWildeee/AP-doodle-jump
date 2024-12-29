@@ -6,7 +6,7 @@
 #include "../headers/view/PlatformView.h"
 #include <iostream>
 namespace View {
-Game::Game() : window(sf::VideoMode(800, 600), "Doodle Jump") {
+Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
     window.setFramerateLimit(60);
 
     if (!font.loadFromFile("../../assets/DoodleJump.ttf")) {
@@ -22,11 +22,11 @@ Game::Game() : window(sf::VideoMode(800, 600), "Doodle Jump") {
     gameOverText.setCharacterSize(48);
     gameOverText.setFillColor(sf::Color::Red);
     gameOverText.setString("Game Over!\nPress R to restart");
-    gameOverText.setPosition(400 - gameOverText.getGlobalBounds().width / 2,
-                             300 - gameOverText.getGlobalBounds().height / 2);
+    gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
+                             400 - gameOverText.getGlobalBounds().height / 2);
 
     factory = std::make_shared<ConcreteFactory>();
-    world = std::make_shared<Logic::World>(800, 600, factory);
+    world = std::make_shared<Logic::World>(480, 800, factory);
 
     gameController = std::make_unique<GameController>(world);
 
@@ -49,7 +49,7 @@ void Game::processEvents() {
             window.close();
         } else if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::R && isGameOver) {
-                world = std::make_shared<Logic::World>(800, 600, factory);
+                world = std::make_shared<Logic::World>(480, 800, factory);
                 gameController = std::make_unique<GameController>(world);
                 isGameOver = false;
             }
@@ -65,21 +65,23 @@ void Game::update() {
     if (!isGameOver) {
         gameController->update();
 
-        if (world->getPlayer()->getCoords().second > 600) {
+        float cameraY = world->getCamera().getY();
+        if (world->getPlayer()->getCoords().second > cameraY + window.getSize().y / 2) {
             isGameOver = true;
             handleGameOver();
+            return;
         }
     }
 }
 
 void Game::handleGameOver() {
-    auto& score = Logic::Score::getInstance();
+    Logic::Score& score = Logic::Score::getInstance();
     gameOverText.setString("Game Over!\nScore: " + std::to_string(score.getScore()) +
                            "\nHigh Score: " + std::to_string(score.getHighScore()) + "\nPress R to Restart");
 
     // Center the text
-    gameOverText.setPosition(400 - gameOverText.getGlobalBounds().width / 2,
-                             300 - gameOverText.getGlobalBounds().height / 2);
+    gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
+                             400 - gameOverText.getGlobalBounds().height / 2);
 }
 
 void Game::render() {
@@ -87,7 +89,7 @@ void Game::render() {
 
     sf::View view = window.getDefaultView();
     Logic::Camera camera = world->getCamera();
-    view.setCenter(400, camera.getY());
+    view.setCenter(240, camera.getY());
     window.setView(view);
 
     for (const auto& entityView : factory->getViews()) {

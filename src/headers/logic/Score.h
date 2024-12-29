@@ -8,11 +8,11 @@ namespace Logic {
 
 class Score : public Observer {
 public:
-    // Also made score a singleton
+    // TODO: remove singleton (wrong assumption before)
     static Score& getInstance();
 
-    void update() override;
     void onNewHeight(float height);
+    void update() override;
 
     // Added, because I saw they were getting used in scoring as well. Not sure if they are needed
     void onBonusCollected(BonusType bonusType);

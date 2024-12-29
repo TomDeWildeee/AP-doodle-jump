@@ -4,7 +4,7 @@
 namespace View {
 
 PlatformView::PlatformView(const std::shared_ptr<Logic::Platform>& platform) : EntityView(platform) {
-    shape.setSize(sf::Vector2f(70.0f, 20.0f));
+    shape.setSize(sf::Vector2f(120, 20.0f));
     shape.setOrigin(30.0f, 10.0f);
     updateColor(platform->getType());
 }
@@ -12,7 +12,7 @@ PlatformView::PlatformView(const std::shared_ptr<Logic::Platform>& platform) : E
 void PlatformView::updateView(std::shared_ptr<Logic::EntityModel> model) {
     // I know dynamic pointer cast is not the best practice, but I'm not sure how to avoid it here
     std::shared_ptr<Logic::Platform> platform = std::dynamic_pointer_cast<Logic::Platform>(model);
-    if (platform) {
+    if (model) {
         std::pair<float, float> coords = model->getCoords();
         shape.setPosition(coords.first, coords.second);
         updateColor(platform->getType());

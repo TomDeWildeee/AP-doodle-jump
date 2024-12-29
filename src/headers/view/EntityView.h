@@ -15,6 +15,7 @@ public:
 
     void update() override;
     virtual void draw(sf::RenderWindow& window) = 0;
+    [[nodiscard]] bool isOffScreen(float maxY) const;
 
 protected:
     virtual void updateView(std::shared_ptr<Logic::EntityModel> model) = 0;

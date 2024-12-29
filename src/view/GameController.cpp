@@ -6,21 +6,9 @@ namespace View {
 
 GameController::GameController(std::shared_ptr<Logic::World> world) : world(std::move(world)) {}
 
-void GameController::update() {
-    if (gameOver)
-        return;
-
-    world->update();
-    std::shared_ptr<Logic::Player> player = world->getPlayer();
-    if (player && player->getCoords().second > 600) {
-        gameOver = true;
-    }
-}
+void GameController::update() { world->update(); }
 
 void GameController::handleInput(const sf::Event& event) {
-    if (gameOver)
-        return;
-
     std::shared_ptr<Logic::Player> player = world->getPlayer();
     if (!player)
         return;
@@ -30,8 +18,6 @@ void GameController::handleInput(const sf::Event& event) {
             player->moveLeft();
         } else if (event.key.code == sf::Keyboard::Right || event.key.code == sf::Keyboard::D) {
             player->moveRight();
-        } else if (event.key.code == sf::Keyboard::Space) {
-            player->jump();
         } else {
             std::pair<float, float> newVelocity = {0, player->getVelocity().second};
             player->setVelocity(newVelocity);

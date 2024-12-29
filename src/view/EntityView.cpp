@@ -11,5 +11,11 @@ void EntityView::update() {
         updateView(modelPtr);
     }
 }
+bool EntityView::isOffScreen(float maxY) const {
+    if (auto entity = model.lock()) {
+        return entity->getCoords().second > maxY;
+    }
+    return true;
+}
 
 } // namespace View

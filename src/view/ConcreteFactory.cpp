@@ -3,6 +3,7 @@
 #include "../headers/view/BonusView.h"
 #include "../headers/view/PlatformView.h"
 #include "../headers/view/PlayerView.h"
+#include <iostream>
 
 namespace View {
 
@@ -39,6 +40,13 @@ std::shared_ptr<Logic::Bonus> ConcreteFactory::createBonus(const std::pair<float
     views.push_back(bonusView);
     return bonus;
 }
-const std::vector<std::shared_ptr<EntityView>>& ConcreteFactory::getViews() const { return views; }
+std::vector<std::shared_ptr<EntityView>>& ConcreteFactory::getViews() { return views; }
+
+// This took way too long to find out
+void ConcreteFactory::cleanupViews(float maxY) {
+    views.erase(
+        std::remove_if(views.begin(), views.end(), [maxY](const auto& view) { return view->isOffScreen(maxY); }),
+        views.end());
+}
 
 } // namespace View

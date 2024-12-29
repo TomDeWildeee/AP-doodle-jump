@@ -6,6 +6,8 @@ namespace Logic {
 Camera::Camera(float width, float height) : width(width), height(height), y(0), minY(0), maxY(0) {}
 
 void Camera::update(float newY) {
+    if (newY > y)
+        return;
     float deltaTime = Stopwatch::getInstance().getDeltaTime();
     y = newY;
     float difference = y - minY;
