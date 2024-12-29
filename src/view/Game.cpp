@@ -85,8 +85,7 @@ void Game::handleGameOver() {
 }
 
 void Game::render() {
-    window.clear(sf::Color(135, 206, 235));
-
+    window.clear();
     sf::View view = window.getDefaultView();
     Logic::Camera camera = world->getCamera();
     view.setCenter(240, camera.getY());

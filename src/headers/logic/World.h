@@ -15,9 +15,10 @@ public:
     void cleanup();
     void checkCollisions();
 
-    std::shared_ptr<Player> getPlayer() const { return player; }
+    [[nodiscard]] std::shared_ptr<Player> getPlayer() const { return player; }
+    
     // Get camera by reference to avoid copying it (hopefully)
-    const Camera& getCamera() const { return *camera; }
+    [[nodiscard]] const Camera& getCamera() const { return *camera; }
 
 private:
     std::shared_ptr<EntityFactory> factory;
@@ -29,9 +30,9 @@ private:
 
     float width;
     float height;
-    float highestY;
     void generateBGTiles(float fromY, float toY);
-    bool shouldGenerateBonus();
+    static bool shouldGenerateBonus();
+    bool canPlaceBonus(const std::pair<float, float>& coords);
 };
 
 } // namespace Logic

@@ -28,7 +28,7 @@ std::shared_ptr<Logic::BGTile> ConcreteFactory::createBGTile(const std::pair<flo
     std::shared_ptr<Logic::BGTile> bgTile = std::make_shared<Logic::BGTile>(coords);
     std::shared_ptr<BGTileView> bgTileView = std::make_shared<BGTileView>(bgTile);
     bgTile->attach(bgTileView);
-    views.push_back(bgTileView);
+    views.insert(views.begin(), bgTileView);
     return bgTile;
 }
 

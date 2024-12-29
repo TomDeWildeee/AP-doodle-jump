@@ -2,7 +2,7 @@
 
 namespace Logic {
 
-EntityModel::EntityModel(const std::pair<float, float>& coords) : coords(coords), velocity({0, 0}){};
+EntityModel::EntityModel(const std::pair<float, float>& coords) : coords(coords), velocity({0, 0}) {}
 
 EntityModel::~EntityModel() = default;
 

@@ -9,12 +9,8 @@ BonusView::BonusView(const std::shared_ptr<Logic::Bonus>& bonus) : EntityView(bo
 }
 
 void BonusView::updateView(std::shared_ptr<Logic::EntityModel> model) {
-    // I know dynamic pointer cast is not the best practice, but I'm not sure how to avoid it here
-    std::shared_ptr<Logic::Bonus> bonus = std::dynamic_pointer_cast<Logic::Bonus>(model);
-    if (bonus) {
-        std::pair<float, float> coords = model->getCoords();
-        shape_.setPosition(coords.first, coords.second);
-    }
+    std::pair<float, float> coords = model->getCoords();
+    shape_.setPosition(coords.first, coords.second);
 }
 
 void BonusView::updateColor(Logic::BonusType type) {

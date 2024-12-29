@@ -12,6 +12,7 @@ void Player::update(float deltaTime) {
         if (jetpackTimer >= jetpackDuration) {
             jetpackActive = false;
             jetpackTimer = 0.0f;
+            velocity.second = 0;
         }
     } else {
         velocity.second += gravity * deltaTime;
@@ -28,14 +29,15 @@ void Player::moveRight() { velocity.first = moveSpeed; }
 void Player::jump(float force) { velocity.second = jumpForce * force; }
 bool Player::isJumping() const { return velocity.second != 0; }
 
+// TODO: split code off to bonus class ->
+
 void Player::setJetpack(bool b) { this->jetpack = b; }
 
-void Player::controlJetpack(bool activate) {
-    if (jetpack) {
-        jetpackActive = activate;
-        if (activate) {
-            jetpackTimer = 0.0f;
-        }
+void Player::controlJetpack() {
+    if (jetpack && !jetpackActive) {
+        jetpackActive = true;
+        jetpackTimer = 0.0f;
+        velocity.second = jetpackForce;
     }
 }
 
