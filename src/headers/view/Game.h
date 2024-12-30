@@ -1,6 +1,7 @@
 #ifndef DOODLE_JUMP_GAME_H
 #define DOODLE_JUMP_GAME_H
 
+#include "../logic/Score.h"
 #include "../logic/World.h"
 #include "ConcreteFactory.h"
 #include "GameController.h"
@@ -12,6 +13,7 @@ namespace View {
 class Game {
 public:
     Game();
+    ~Game();
     void run();
 
 private:
@@ -25,6 +27,7 @@ private:
     std::shared_ptr<Logic::World> world;
     std::unique_ptr<GameController> gameController;
     std::shared_ptr<ConcreteFactory> factory;
+    std::shared_ptr<Logic::Score> score;
 
     sf::Font font;
     sf::Text gameOverText;

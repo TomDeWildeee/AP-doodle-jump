@@ -4,7 +4,7 @@
 #include "EntityModel.h"
 namespace Logic {
 
-enum class PlatformType { NORMAL, BREAKABLE, MOVABLE, DISAPPEARING };
+enum class PlatformType { STATIC, HORIZONTAL, VERTICAL, TEMPORARY };
 
 class Platform : public EntityModel {
 public:
@@ -23,9 +23,11 @@ private:
     bool active = true;
     float alpha = 1.0f;
     float initialX;
+    float initialY;
     float moveDistance = 100.0f;
     float moveSpeed = 100.0f;
     float disappearTimer = 3.0f;
+    float timeElapsed;
 };
 
 } // namespace Logic

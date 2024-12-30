@@ -4,18 +4,24 @@
 namespace Logic {
 
 Platform::Platform(const std::pair<float, float>& coords, PlatformType type)
-    : EntityModel(coords), type(type), initialX(coords.first) {}
+    : EntityModel(coords), type(type), initialX(coords.first), initialY(coords.second), timeElapsed(0.0f) {}
 
 void Platform::update(float deltaTime) {
     if (!active)
         return;
 
+    timeElapsed += deltaTime;
+
     switch (type) {
-    case PlatformType::MOVABLE:
-        coords.first = initialX + std::sin(moveSpeed * deltaTime) * moveDistance;
+    case PlatformType::HORIZONTAL:
+        coords.first = initialX + std::sin(timeElapsed * moveSpeed * 0.015f) * moveDistance;
         break;
 
-    case PlatformType::DISAPPEARING:
+    case PlatformType::VERTICAL:
+        coords.second = initialY + std::cos(timeElapsed * moveSpeed * 0.015f) * moveDistance;
+        break;
+
+    case PlatformType::TEMPORARY:
         if (disappearTimer > 0) {
             disappearTimer -= deltaTime;
         } else {

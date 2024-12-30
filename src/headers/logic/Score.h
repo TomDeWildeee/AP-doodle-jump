@@ -8,21 +8,17 @@ namespace Logic {
 
 class Score : public Observer {
 public:
-    // TODO: remove singleton (wrong assumption before)
-    static Score& getInstance();
-
+    Score();
     void onNewHeight(float height);
     void update() override;
 
-    // Added, because I saw they were getting used in scoring as well. Not sure if they are needed
     void onBonusCollected(BonusType bonusType);
-    void onPlatformReuse(PlatformType platformType);
 
     [[nodiscard]] int getScore() const;
     [[nodiscard]] int getHighScore() const;
+    void resetScore();
 
 private:
-    Score();
     int score = 0;
     int highScore = 0;
     float maxHeight = 0.0f;

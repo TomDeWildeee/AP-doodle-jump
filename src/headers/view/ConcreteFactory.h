@@ -7,13 +7,14 @@ namespace View {
 
 class ConcreteFactory : public Logic::EntityFactory {
 public:
+    ~ConcreteFactory() override;
     std::shared_ptr<Logic::Player> createPlayer(const std::pair<float, float>& coords) override;
     std::shared_ptr<Logic::Platform> createPlatform(const std::pair<float, float>& coords,
                                                     Logic::PlatformType type) override;
     std::shared_ptr<Logic::BGTile> createBGTile(const std::pair<float, float>& coords) override;
     std::shared_ptr<Logic::Bonus> createBonus(const std::pair<float, float>& coords, Logic::BonusType type) override;
 
-    std::vector<std::shared_ptr<EntityView>>& getViews();
+    std::vector<std::shared_ptr<EntityView>>& getViews() override;
     void cleanupViews(float maxY) override;
 
 private:

@@ -18,7 +18,7 @@ void Bonus::activate(const std::shared_ptr<Player>& player) {
 
     switch (type) {
     case BonusType::SPRING:
-        player->jump(10.0f);
+        player->jump(5.0f);
         break;
     case BonusType::JETPACK:
         player->setJetpack(true);

@@ -26,7 +26,8 @@ Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
                              400 - gameOverText.getGlobalBounds().height / 2);
 
     factory = std::make_shared<ConcreteFactory>();
-    world = std::make_shared<Logic::World>(480, 800, factory);
+    score = std::make_shared<Logic::Score>();
+    world = std::make_shared<Logic::World>(480, 800, factory, score);
 
     gameController = std::make_unique<GameController>(world);
 
@@ -49,7 +50,7 @@ void Game::processEvents() {
             window.close();
         } else if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::R && isGameOver) {
-                world = std::make_shared<Logic::World>(480, 800, factory);
+                world = std::make_shared<Logic::World>(480, 800, factory, score);
                 gameController = std::make_unique<GameController>(world);
                 isGameOver = false;
             }
@@ -75,13 +76,13 @@ void Game::update() {
 }
 
 void Game::handleGameOver() {
-    Logic::Score& score = Logic::Score::getInstance();
-    gameOverText.setString("Game Over!\nScore: " + std::to_string(score.getScore()) +
-                           "\nHigh Score: " + std::to_string(score.getHighScore()) + "\nPress R to Restart");
+    gameOverText.setString("Game Over!\nScore: " + std::to_string(score->getScore()) +
+                           "\nHigh Score: " + std::to_string(score->getHighScore()) + "\nPress R to Restart");
 
     // Center the text
     gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
                              400 - gameOverText.getGlobalBounds().height / 2);
+    score->resetScore();
 }
 
 void Game::render() {
@@ -104,4 +105,6 @@ void Game::render() {
 
     window.display();
 }
+Game::~Game() = default;
+
 } // namespace View

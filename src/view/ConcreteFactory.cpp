@@ -49,4 +49,6 @@ void ConcreteFactory::cleanupViews(float maxY) {
         views.end());
 }
 
+ConcreteFactory::~ConcreteFactory() = default;
+
 } // namespace View

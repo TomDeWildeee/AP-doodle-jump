@@ -11,14 +11,15 @@ namespace Logic {
 const float TILE_SIZE = 20.0f;
 const float MIN_DISTANCE = 30.0f;
 
-World::World(float width, float height, const std::shared_ptr<EntityFactory>& factory)
-    : factory(factory), width(width), height(height) {
+World::World(float width, float height, const std::shared_ptr<EntityFactory>& factory,
+             const std::shared_ptr<Score>& score)
+    : factory(factory), score(score), width(width), height(height) {
 
     player = factory->createPlayer({width / 2, height / 2});
 
     camera = std::make_unique<Camera>(width, height);
 
-    platforms.push_back(factory->createPlatform({width / 2, height / 2}, PlatformType::NORMAL));
+    platforms.push_back(factory->createPlatform({width / 2, height / 2}, PlatformType::STATIC));
     generatePlatforms(height, 0);
     generateBGTiles(height, 0);
 }
@@ -26,7 +27,6 @@ World::World(float width, float height, const std::shared_ptr<EntityFactory>& fa
 void World::update() {
     Random& random = Random::getInstance();
     Stopwatch stopwatch = Stopwatch::getInstance();
-    Score& score = Score::getInstance();
     float deltaTime = stopwatch.getDeltaTime();
 
     player->update(deltaTime);
@@ -61,7 +61,7 @@ void World::update() {
             if (platform->getCoords().second < highestYCoord) {
                 highestYCoord = platform->getCoords().second;
 
-                score.onNewHeight(highestYCoord);
+                score->onNewHeight(highestYCoord);
             }
         }
     }
@@ -118,7 +118,7 @@ void World::checkCollisions() {
                 player->setVelocity({player->getVelocity().first, 0});
                 player->jump();
 
-                if (platform->getType() == PlatformType::BREAKABLE) {
+                if (platform->getType() == PlatformType::TEMPORARY) {
                     platform->deActivate();
                 }
 
@@ -138,42 +138,60 @@ void World::checkCollisions() {
         float horizontalDistance = std::abs(px - bonusX);
 
         if (verticalDistance < 30 && horizontalDistance < 30) {
+            score->onBonusCollected(bonus->getType());
             bonus->activate(player);
-            Score::getInstance().onBonusCollected(bonus->getType());
+
             break;
         }
     }
+}
+
+PlatformType getRandomPlatformType(float randValue) {
+    std::vector<std::pair<PlatformType, float>> weightedTypes = {{PlatformType::STATIC, 80.0f},
+                                                                 {PlatformType::TEMPORARY, 10.0f},
+                                                                 {PlatformType::HORIZONTAL, 5.0f},
+                                                                 {PlatformType::VERTICAL, 5.0f}};
+
+    float cumulativeWeight = 0.0f;
+    for (const auto& typeWeight : weightedTypes) {
+        cumulativeWeight += typeWeight.second;
+        if (randValue <= cumulativeWeight) {
+            return typeWeight.first;
+        }
+    }
+
+    return PlatformType::STATIC;
 }
 
 // Took me ages to figure out and get good
 void World::generatePlatforms(float fromY, float toY) {
     Random& random = Random::getInstance();
 
-    float heightFactor = std::min((-fromY / 5000.0f), 1.0f); // Changed from 1000 to 5000, max 1.0
+    float heightFactor = std::min((-fromY / 5000.0f), 1.0f);
 
-    // Save other platforms, so we don't overlap many of them
     struct PlatformPos {
         float x, y;
     };
 
     std::vector<PlatformPos> generatedPositions;
+    float verticalSpacing = random.getFloat(40.0f, 70.0f);
 
-    for (float y = fromY; y > toY; y -= 40.0f) {
+    for (float y = fromY; y > toY; y -= verticalSpacing) {
         float spawnChance = 0.95f - (heightFactor * 0.15f);
 
         if (random.getFloat(0, 1) < spawnChance) {
             float x;
             if (random.getInt(0, 1) == 0) {
-                x = random.getFloat(100.0f, width / 2 - 50.0f); // Left side
+                x = random.getFloat(100.0f, width / 2 - 50.0f);
             } else {
-                x = random.getFloat(width / 2 + 50.0f, width - 100.0f); // Right side
+                x = random.getFloat(width / 2 + 50.0f, width - 100.0f);
             }
 
             bool tooClose = false;
 
             for (const auto& pos : generatedPositions) {
-                float dx = x - pos.x;
-                float dy = y - pos.y;
+                float dx = std::abs(x - pos.x);
+                float dy = std::abs(y - pos.y);
                 float distance = std::sqrt(dx * dx + dy * dy);
                 if (distance < 60.0f) {
                     tooClose = true;
@@ -181,11 +199,16 @@ void World::generatePlatforms(float fromY, float toY) {
                 }
             }
 
+            float randomValue = random.getFloat(0.0f, 100.0f);
+            PlatformType randomPlatformType = getRandomPlatformType(randomValue);
+
             if (!tooClose) {
-                platforms.push_back(factory->createPlatform({x, y}, PlatformType::NORMAL));
+                platforms.push_back(factory->createPlatform({x, y}, randomPlatformType));
                 generatedPositions.push_back({x, y});
             }
         }
+
+        verticalSpacing = random.getFloat(40.0f, 70.0f);
     }
 }
 
@@ -248,5 +271,7 @@ void World::generateBGTiles(float fromY, float toY) {
         }
     }
 }
+
+World::~World() = default;
 
 } // namespace Logic

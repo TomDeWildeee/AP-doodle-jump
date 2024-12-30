@@ -7,7 +7,7 @@ namespace View {
 
 class GameController {
 public:
-    GameController(std::shared_ptr<Logic::World> world);
+    explicit GameController(std::shared_ptr<Logic::World> world);
     void update();
     void handleInput(const sf::Event& event);
 

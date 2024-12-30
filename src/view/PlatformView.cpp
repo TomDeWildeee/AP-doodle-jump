@@ -21,16 +21,16 @@ void PlatformView::updateView(std::shared_ptr<Logic::EntityModel> model) {
 
 void PlatformView::updateColor(Logic::PlatformType type) {
     switch (type) {
-    case Logic::PlatformType::NORMAL:
+    case Logic::PlatformType::STATIC:
         shape.setFillColor(sf::Color::Green);
         break;
-    case Logic::PlatformType::BREAKABLE:
+    case Logic::PlatformType::TEMPORARY:
         shape.setFillColor(sf::Color::White);
         break;
-    case Logic::PlatformType::MOVABLE:
+    case Logic::PlatformType::HORIZONTAL:
         shape.setFillColor(sf::Color::Blue);
         break;
-    case Logic::PlatformType::DISAPPEARING:
+    case Logic::PlatformType::VERTICAL:
         shape.setFillColor(sf::Color::Yellow);
         break;
     }
