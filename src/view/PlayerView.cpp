@@ -3,16 +3,19 @@
 namespace View {
 
 PlayerView::PlayerView(const std::shared_ptr<Logic::Player>& player) : EntityView(player) {
-    shape.setSize(sf::Vector2f(50.0f, 50.0f));
-    shape.setFillColor(sf::Color::Red);
-    shape.setOrigin(25.0f, 25.0f);
+    if (!texture.loadFromFile("../../assets/doodle.png")) {
+        throw std::runtime_error("Could not load doodle texture");
+    }
+    sprite.setTexture(texture);
+    sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
+    sprite.setScale(0.1f, 0.1f);
 }
 
 void PlayerView::updateView(std::shared_ptr<Logic::EntityModel> model) {
     std::pair<float, float> coords = model->getCoords();
-    shape.setPosition(coords.first, coords.second);
+    sprite.setPosition(coords.first, coords.second);
 }
 
-void PlayerView::draw(sf::RenderWindow& window) { window.draw(shape); }
+void PlayerView::draw(sf::RenderWindow& window) { window.draw(sprite); }
 
 } // namespace View

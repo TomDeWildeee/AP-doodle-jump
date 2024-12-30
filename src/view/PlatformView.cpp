@@ -3,10 +3,26 @@
 
 namespace View {
 
+void PlatformView::loadTextures() {
+    if (!greenTexture.loadFromFile("../../assets/green_platform.png")) {
+        throw std::runtime_error("Could not load doodle texture");
+    }
+    if (!yellowTexture.loadFromFile("../../assets/yellow_platform.png")) {
+        throw std::runtime_error("Could not load doodle texture");
+    }
+    if (!blueTexture.loadFromFile("../../assets/blue_platform.png")) {
+        throw std::runtime_error("Could not load doodle texture");
+    }
+    if (!whiteTexture.loadFromFile("../../assets/white_platform.png")) {
+        throw std::runtime_error("Could not load doodle texture");
+    }
+}
+
 PlatformView::PlatformView(const std::shared_ptr<Logic::Platform>& platform) : EntityView(platform) {
-    shape.setSize(sf::Vector2f(120, 20.0f));
-    shape.setOrigin(30.0f, 10.0f);
-    updateColor(platform->getType());
+    loadTextures();
+
+    sprite.setOrigin(greenTexture.getSize().x / 2, greenTexture.getSize().y / 2);
+    updateTexture(platform->getType());
 }
 
 void PlatformView::updateView(std::shared_ptr<Logic::EntityModel> model) {
@@ -14,28 +30,28 @@ void PlatformView::updateView(std::shared_ptr<Logic::EntityModel> model) {
     std::shared_ptr<Logic::Platform> platform = std::dynamic_pointer_cast<Logic::Platform>(model);
     if (model) {
         std::pair<float, float> coords = model->getCoords();
-        shape.setPosition(coords.first, coords.second);
-        updateColor(platform->getType());
+        sprite.setPosition(coords.first, coords.second);
+        updateTexture(platform->getType());
     }
 }
 
-void PlatformView::updateColor(Logic::PlatformType type) {
+void PlatformView::updateTexture(Logic::PlatformType type) {
     switch (type) {
     case Logic::PlatformType::STATIC:
-        shape.setFillColor(sf::Color::Green);
+        sprite.setTexture(greenTexture);
         break;
     case Logic::PlatformType::TEMPORARY:
-        shape.setFillColor(sf::Color::White);
+        sprite.setTexture(whiteTexture);
         break;
     case Logic::PlatformType::HORIZONTAL:
-        shape.setFillColor(sf::Color::Blue);
+        sprite.setTexture(blueTexture);
         break;
     case Logic::PlatformType::VERTICAL:
-        shape.setFillColor(sf::Color::Yellow);
+        sprite.setTexture(yellowTexture);
         break;
     }
 }
 
-void PlatformView::draw(sf::RenderWindow& window) { window.draw(shape); }
+void PlatformView::draw(sf::RenderWindow& window) { window.draw(sprite); }
 
 } // namespace View

@@ -3,7 +3,8 @@
 
 #include "../logic/Player.h"
 #include "EntityView.h"
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 namespace View {
 
 class PlayerView : public EntityView {
@@ -15,7 +16,8 @@ protected:
     void updateView(std::shared_ptr<Logic::EntityModel> model) override;
 
 private:
-    sf::RectangleShape shape;
+    sf::Texture texture;
+    sf::Sprite sprite;
 };
 
 } // namespace View

@@ -11,7 +11,7 @@ public:
     void update(float deltaTime) override;
     void moveLeft();
     void moveRight();
-    void jump(float force = 2.5f);
+    void jump(float force = 3.0f);
     [[nodiscard]] bool isJumping() const;
 
     void setJetpack(bool b);

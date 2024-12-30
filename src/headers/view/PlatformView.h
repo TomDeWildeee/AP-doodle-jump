@@ -3,7 +3,8 @@
 
 #include "../logic/Platform.h"
 #include "EntityView.h"
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 namespace View {
 
 class PlatformView : public EntityView {
@@ -15,8 +16,13 @@ protected:
     void updateView(std::shared_ptr<Logic::EntityModel> model) override;
 
 private:
-    sf::RectangleShape shape;
-    void updateColor(Logic::PlatformType type);
+    sf::Texture greenTexture;
+    sf::Texture yellowTexture;
+    sf::Texture blueTexture;
+    sf::Texture whiteTexture;
+    sf::Sprite sprite;
+    void loadTextures();
+    void updateTexture(Logic::PlatformType type);
 };
 
 } // namespace View
