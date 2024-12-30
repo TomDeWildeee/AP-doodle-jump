@@ -86,7 +86,7 @@ void World::update() {
                 float bonusY = platform->getCoords().second - 30.0f;
 
                 if (canPlaceBonus({bonusX, bonusY})) {
-                    BonusType type = (random.getFloat(0, 1) < 0.5f) ? BonusType::SPRING : BonusType::JETPACK;
+                    BonusType type = (random.getFloat(0, 1) < 0.8f) ? BonusType::SPRING : BonusType::JETPACK;
                     bonuses.push_back(factory->createBonus({bonusX, bonusY}, type));
                 }
             }
@@ -261,7 +261,7 @@ bool World::canPlaceBonus(const std::pair<float, float>& coords) {
 
 bool World::shouldGenerateBonus() {
     Random& random = Random::getInstance();
-    return random.getFloat(0, 1) < 0.05f;
+    return random.getFloat(0, 1) < 0.025f;
 }
 
 void World::generateBGTiles(float fromY, float toY) {
