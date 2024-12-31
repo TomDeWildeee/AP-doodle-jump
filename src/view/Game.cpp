@@ -70,7 +70,7 @@ void Game::update() {
         float scoreSpeed = 1000.0f;
 
         if (displayedScore < actualScore) {
-            displayedScore += static_cast<int>(scoreSpeed * Logic::Stopwatch::getInstance().getDeltaTime());
+            displayedScore += (int)(scoreSpeed * Logic::Stopwatch::getInstance().getDeltaTime());
             if (displayedScore > actualScore) {
                 displayedScore = actualScore;
             }
