@@ -18,5 +18,4 @@ void Subject::notify() {
         observer->update();
     }
 }
-
 } // namespace Logic

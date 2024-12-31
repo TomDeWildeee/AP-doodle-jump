@@ -15,6 +15,7 @@ World::World(float width, float height, const std::shared_ptr<EntityFactory>& fa
     : factory(factory), score(score), width(width), height(height) {
 
     player = factory->createPlayer({width / 2, height / 2});
+    player->attach(score);
 
     camera = std::make_unique<Camera>(width, height);
 

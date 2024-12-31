@@ -10,9 +10,7 @@ endif ()
 
 SET(SRC main.cpp
         headers/logic/EntityFactory.h
-        headers/logic/Observer.h
         view/Game.cpp
-        logic/Subject.cpp
         logic/EntityModel.cpp
         logic/Player.cpp
         logic/Platform.cpp
@@ -30,6 +28,7 @@ SET(SRC main.cpp
         view/ConcreteFactory.cpp
         logic/World.cpp
         view/GameController.cpp
+        logic/Subject.cpp
 )
 ADD_EXECUTABLE(code ${SRC})
 

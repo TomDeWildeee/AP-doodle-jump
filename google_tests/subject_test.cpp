@@ -1,5 +1,5 @@
-#include "../../src/headers/logic/Observer.h"
-#include "../../src/headers/logic/Subject.h"
+#include "../src/headers/logic/Observer.h"
+#include "../src/headers/logic/Subject.h"
 #include <gtest/gtest.h>
 #include <memory>
 
@@ -10,13 +10,8 @@ public:
     void update() override { updated = true; }
 };
 
-class TestSubject : public Logic::Subject {
-public:
-    using Logic::Subject::notify;
-};
-
 TEST(SubjectTest, AttachAndNotifyObserver) {
-    TestSubject subject;
+    Logic::Subject subject;
     auto observer = std::make_shared<TestObserver>();
 
     subject.attach(observer);
@@ -26,7 +21,7 @@ TEST(SubjectTest, AttachAndNotifyObserver) {
 }
 
 TEST(SubjectTest, DetachObserver) {
-    TestSubject subject;
+    Logic::Subject subject;
     auto observer = std::make_shared<TestObserver>();
 
     subject.attach(observer);

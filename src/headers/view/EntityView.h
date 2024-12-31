@@ -2,7 +2,6 @@
 #define DOODLE_JUMP_ENTITYVIEW_H
 
 #include "../logic/EntityModel.h"
-#include "../logic/Observer.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <memory>
 

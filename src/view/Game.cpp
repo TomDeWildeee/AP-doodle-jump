@@ -27,7 +27,7 @@ Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
     factory = std::make_shared<ConcreteFactory>();
     score = std::make_shared<Logic::Score>();
     world = std::make_shared<Logic::World>(480, 800, factory, score);
-    scoreText.setString("Score: " + std::to_string(score->getScore()));
+    scoreText.setString("Score: 0");
     scoreText.setPosition(240 - scoreText.getGlobalBounds().width / 2, 0);
 
     gameController = std::make_unique<GameController>(world);
@@ -94,8 +94,9 @@ void Game::handleGameOver() {
     // Center the text
     gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
                              400 - gameOverText.getGlobalBounds().height / 2);
+
+    displayedScore = 0;
     score->resetScore();
-    scoreText.setString("Score: " + std::to_string(score->getScore()));
 }
 
 void Game::render() {

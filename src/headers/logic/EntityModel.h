@@ -1,7 +1,7 @@
 #ifndef DOODLE_JUMP_ENTITYMODEL_H
 #define DOODLE_JUMP_ENTITYMODEL_H
-#include "Subject.h"
 
+#include "Subject.h"
 namespace Logic {
 class EntityModel : public Logic::Subject {
 public:

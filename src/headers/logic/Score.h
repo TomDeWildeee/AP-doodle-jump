@@ -3,19 +3,19 @@
 
 #include "Bonus.h"
 #include "Observer.h"
-#include "Platform.h"
 namespace Logic {
 
 class Score : public Observer {
 public:
     Score();
-    void onNewHeight(float height);
     void update() override;
 
+    void onNewHeight(float height);
     void onBonusCollected(BonusType bonusType);
 
     [[nodiscard]] int getScore() const;
     [[nodiscard]] int getHighScore() const;
+
     void resetScore();
 
 private:

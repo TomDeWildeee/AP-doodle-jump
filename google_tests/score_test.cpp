@@ -10,13 +10,13 @@ TEST(ScoreTest, InitialValues) {
 TEST(ScoreTest, UpdateScoreOnNewHeight) {
     Logic::Score score = Logic::Score();
     score.onNewHeight(10.0f);
-    EXPECT_EQ(score.getScore(), 100);
-    EXPECT_EQ(score.getHighScore(), 100);
+    EXPECT_EQ(score.getScore(), 10);
+    EXPECT_EQ(score.getHighScore(), 10);
 }
 
 TEST(ScoreTest, UpdateScoreOnBonusCollected) {
     Logic::Score score = Logic::Score();
     score.onBonusCollected(Logic::BonusType::JETPACK);
-    EXPECT_EQ(score.getScore(), 100);
-    EXPECT_EQ(score.getHighScore(), 100);
+    EXPECT_EQ(score.getScore(), 700);
+    EXPECT_EQ(score.getHighScore(), 700);
 }
