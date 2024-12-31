@@ -7,7 +7,7 @@
 #include <iostream>
 namespace View {
 Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(144);
 
     if (!font.loadFromFile("../../assets/DoodleJump.ttf")) {
         throw std::runtime_error("Could not load font");
@@ -88,12 +88,22 @@ void Game::update() {
 }
 
 void Game::handleGameOver() {
+
     gameOverText.setString("Game Over!\nScore: " + std::to_string(score->getScore()) +
                            "\nHigh Score: " + std::to_string(score->getHighScore()) + "\nPress R to Restart");
 
-    // Center the text
     gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
                              400 - gameOverText.getGlobalBounds().height / 2);
+
+    gameOverBackground.setSize(
+        sf::Vector2f(gameOverText.getGlobalBounds().width + 40, gameOverText.getGlobalBounds().height + 40));
+
+    gameOverBackground.setPosition(220 - gameOverText.getGlobalBounds().width / 2,
+                                   400 - gameOverText.getGlobalBounds().height / 2);
+
+    gameOverBackground.setOutlineColor(sf::Color::Black);
+    gameOverBackground.setOutlineThickness(2.0f);
+    gameOverBackground.setFillColor(sf::Color::White);
 
     displayedScore = 0;
     score->resetScore();
@@ -114,6 +124,7 @@ void Game::render() {
 
     window.draw(scoreText);
     if (isGameOver) {
+        window.draw(gameOverBackground);
         window.draw(gameOverText);
     }
 

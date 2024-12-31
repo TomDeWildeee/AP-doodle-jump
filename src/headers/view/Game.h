@@ -33,6 +33,9 @@ private:
     sf::Font font;
     sf::Text gameOverText;
     sf::Text scoreText;
+
+    sf::RectangleShape gameOverBackground;
+
     bool isGameOver = false;
 };
 } // namespace View
