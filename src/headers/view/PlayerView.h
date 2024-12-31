@@ -16,7 +16,8 @@ protected:
     void updateView(std::shared_ptr<Logic::EntityModel> model) override;
 
 private:
-    sf::Texture texture;
+    sf::Texture leftDoodleTexture;
+    sf::Texture rightDoodleTexture;
     sf::Sprite sprite;
 };
 
