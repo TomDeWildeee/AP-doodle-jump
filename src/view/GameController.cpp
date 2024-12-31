@@ -1,6 +1,6 @@
 #include <utility>
 
-#include "../headers/view/GameController.h"
+#include "../../include/view/GameController.h"
 
 namespace View {
 

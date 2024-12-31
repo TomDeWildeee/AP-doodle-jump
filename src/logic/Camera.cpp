@@ -1,5 +1,5 @@
-#include "../headers/logic/Camera.h"
-#include "../headers/logic/Stopwatch.h"
+#include "../../include/logic/Camera.h"
+#include "../../include/logic/Stopwatch.h"
 
 namespace Logic {
 

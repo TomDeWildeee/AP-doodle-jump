@@ -9,7 +9,7 @@ elseif (UNIX)
 endif ()
 
 SET(SRC main.cpp
-        headers/logic/EntityFactory.h
+        ../include/logic/EntityFactory.h
         view/Game.cpp
         logic/EntityModel.cpp
         logic/Player.cpp

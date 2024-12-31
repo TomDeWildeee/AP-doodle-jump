@@ -1,4 +1,4 @@
-#include "../headers/logic/Subject.h"
+#include "../../include/logic/Subject.h"
 #include <algorithm>
 
 namespace Logic {

@@ -1,5 +1,4 @@
-// src/logic/Player.cpp
-#include "../headers/logic/Player.h"
+#include "../../include/logic/Player.h"
 
 namespace Logic {
 

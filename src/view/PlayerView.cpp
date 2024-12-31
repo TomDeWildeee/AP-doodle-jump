@@ -1,4 +1,4 @@
-#include "../headers/view/PlayerView.h"
+#include "../../include/view/PlayerView.h"
 
 namespace View {
 

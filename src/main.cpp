@@ -1,4 +1,4 @@
-#include "headers/view/Game.h"
+#include "../include/view/Game.h"
 
 int main() {
     View::Game game;

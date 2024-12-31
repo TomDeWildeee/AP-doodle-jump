@@ -1,8 +1,8 @@
-#include "../headers/view/ConcreteFactory.h"
-#include "../headers/view/BGTileView.h"
-#include "../headers/view/BonusView.h"
-#include "../headers/view/PlatformView.h"
-#include "../headers/view/PlayerView.h"
+#include "../../include/view/ConcreteFactory.h"
+#include "../../include/view/BGTileView.h"
+#include "../../include/view/BonusView.h"
+#include "../../include/view/PlatformView.h"
+#include "../../include/view/PlayerView.h"
 #include <iostream>
 
 namespace View {

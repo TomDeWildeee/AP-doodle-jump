@@ -1,4 +1,4 @@
-#include "../../src/headers/logic/EntityModel.h"
+#include "../../include/logic/EntityModel.h"
 #include <gtest/gtest.h>
 #include <memory>
 

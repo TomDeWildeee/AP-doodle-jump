@@ -1,4 +1,4 @@
-#include "../headers/logic/Platform.h"
+#include "../../include/logic/Platform.h"
 #include <cmath>
 
 namespace Logic {

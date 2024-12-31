@@ -1,4 +1,4 @@
-#include "../headers/logic/EntityModel.h"
+#include "../../include/logic/EntityModel.h"
 
 namespace Logic {
 

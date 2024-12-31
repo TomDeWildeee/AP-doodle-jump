@@ -1,4 +1,4 @@
-#include "../headers/logic/Score.h"
+#include "../../include/logic/Score.h"
 #include <cmath>
 
 namespace Logic {

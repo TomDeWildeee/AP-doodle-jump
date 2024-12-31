@@ -1,4 +1,4 @@
-#include "../../src/headers/logic/Score.h"
+#include "../../include/logic/Score.h"
 #include <gtest/gtest.h>
 
 TEST(ScoreTest, InitialValues) {

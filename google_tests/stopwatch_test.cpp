@@ -1,4 +1,4 @@
-#include "../../src/headers/logic/Stopwatch.h"
+#include "../../include/logic/Stopwatch.h"
 #include <gtest/gtest.h>
 #include <thread>
 

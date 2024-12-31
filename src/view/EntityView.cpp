@@ -1,4 +1,4 @@
-#include "../headers/view/EntityView.h"
+#include "../../include/view/EntityView.h"
 
 namespace View {
 

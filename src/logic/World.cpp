@@ -1,7 +1,7 @@
-#include "../headers/logic/World.h"
-#include "../headers/logic/Random.h"
-#include "../headers/logic/Stopwatch.h"
-#include "../headers/view/PlatformView.h"
+#include "../../include/logic/World.h"
+#include "../../include/logic/Random.h"
+#include "../../include/logic/Stopwatch.h"
+#include "../../include/view/PlatformView.h"
 #include <algorithm>
 #include <iostream>
 

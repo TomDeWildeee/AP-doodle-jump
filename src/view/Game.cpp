@@ -1,9 +1,7 @@
-#include "../headers//view/Game.h"
-#include "../headers/logic/Score.h"
-#include "../headers/logic/Stopwatch.h"
-#include "../headers/view/BGTileView.h"
-#include "../headers/view/BonusView.h"
-#include "../headers/view/PlatformView.h"
+#include "../../include/view/Game.h"
+#include "../../include/logic/Stopwatch.h"
+#include "../../include/view/BGTileView.h"
+#include "../../include/view/PlatformView.h"
 #include <iostream>
 namespace View {
 Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {

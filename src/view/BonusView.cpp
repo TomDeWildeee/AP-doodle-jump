@@ -1,4 +1,4 @@
-#include "../headers/view/BonusView.h"
+#include "../../include/view/BonusView.h"
 
 namespace View {
 

@@ -1,4 +1,4 @@
-#include "../headers/view/PlatformView.h"
+#include "../../include/view/PlatformView.h"
 #include <iostream>
 
 namespace View {
