@@ -2,8 +2,6 @@
 #define DOODLE_JUMP_ENTITYMODEL_H
 #include "Subject.h"
 
-// Velocity is maybe not needed yet.
-
 namespace Logic {
 class EntityModel : public Logic::Subject {
 public:

@@ -26,13 +26,8 @@ PlatformView::PlatformView(const std::shared_ptr<Logic::Platform>& platform) : E
 }
 
 void PlatformView::updateView(std::shared_ptr<Logic::EntityModel> model) {
-    // I know dynamic pointer cast is not the best practice, but I'm not sure how to avoid it here
-    std::shared_ptr<Logic::Platform> platform = std::dynamic_pointer_cast<Logic::Platform>(model);
-    if (model) {
-        std::pair<float, float> coords = model->getCoords();
-        sprite.setPosition(coords.first, coords.second);
-        updateTexture(platform->getType());
-    }
+    std::pair<float, float> coords = model->getCoords();
+    sprite.setPosition(coords.first, coords.second);
 }
 
 void PlatformView::updateTexture(Logic::PlatformType type) {

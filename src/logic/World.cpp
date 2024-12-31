@@ -1,6 +1,5 @@
 #include "../headers/logic/World.h"
 #include "../headers/logic/Random.h"
-#include "../headers/logic/Score.h"
 #include "../headers/logic/Stopwatch.h"
 #include "../headers/view/PlatformView.h"
 #include <algorithm>
@@ -19,7 +18,7 @@ World::World(float width, float height, const std::shared_ptr<EntityFactory>& fa
 
     camera = std::make_unique<Camera>(width, height);
 
-    platforms.push_back(factory->createPlatform({width / 2, height / 2}, PlatformType::STATIC));
+    player->jump();
     generatePlatforms(height, 0);
     generateBGTiles(height, 0);
 }
@@ -32,6 +31,8 @@ void World::update() {
     player->update(deltaTime);
 
     float playerX = player->getCoords().first;
+    float playerY = player->getCoords().second;
+
     if (playerX < 25) {
         player->setCoords({25, player->getCoords().second});
     } else if (playerX > width - 25) {
@@ -81,7 +82,7 @@ void World::update() {
         generatePlatforms(highestYCoord - 240, topOfView - 800);
 
         for (const auto& platform : platforms) {
-            if (shouldGenerateBonus()) {
+            if (shouldGenerateBonus(platform, playerY)) {
                 float bonusX = platform->getCoords().first;
                 float bonusY = platform->getCoords().second - 30.0f;
 
@@ -106,7 +107,7 @@ void World::checkCollisions() {
         float px = player->getCoords().first;
         float py = player->getCoords().second;
         float platX = platform->getCoords().first;
-        float platY = platform->getCoords().second;
+        float platY = platform->getCoords().second - 20; // - 20 voor hitbox omdat getCoords() de origin coords geeft
 
         if (player->getVelocity().second > 0) {
 
@@ -114,8 +115,6 @@ void World::checkCollisions() {
             float horizontalDistance = std::abs(px - platX);
 
             if (verticalDistance < 20 && horizontalDistance < 60) {
-                player->setCoords({px, platY - 30});
-                player->setVelocity({player->getVelocity().first, 0});
                 player->jump();
 
                 if (platform->getType() == PlatformType::TEMPORARY) {
@@ -228,7 +227,7 @@ void World::cleanup() {
     bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(),
                                  [cameraY, bufferZone](const std::shared_ptr<Bonus>& bonus) {
                                      auto y = bonus->getCoords().second;
-                                     return y > cameraY + bufferZone;
+                                     return (y > cameraY + bufferZone && !bonus->isActive());
                                  }),
                   bonuses.end());
 
@@ -259,9 +258,11 @@ bool World::canPlaceBonus(const std::pair<float, float>& coords) {
     return true;
 }
 
-bool World::shouldGenerateBonus() {
+bool World::shouldGenerateBonus(const std::shared_ptr<Platform>& platform, float playerY) {
     Random& random = Random::getInstance();
-    return random.getFloat(0, 1) < 0.025f;
+    bool shouldGenerate = (random.getFloat(0, 1) < 0.025f) && (platform->getCoords().second < playerY) &&
+                          platform->getType() == PlatformType::STATIC;
+    return shouldGenerate;
 }
 
 void World::generateBGTiles(float fromY, float toY) {

@@ -15,8 +15,7 @@ Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
 
     scoreText.setFont(font);
     scoreText.setCharacterSize(24);
-    scoreText.setFillColor(sf::Color::White);
-    scoreText.setPosition(10, 10);
+    scoreText.setFillColor(sf::Color::Red);
 
     gameOverText.setFont(font);
     gameOverText.setCharacterSize(48);
@@ -28,6 +27,8 @@ Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
     factory = std::make_shared<ConcreteFactory>();
     score = std::make_shared<Logic::Score>();
     world = std::make_shared<Logic::World>(480, 800, factory, score);
+    scoreText.setString("Score: " + std::to_string(score->getScore()));
+    scoreText.setPosition(240 - scoreText.getGlobalBounds().width / 2, 0);
 
     gameController = std::make_unique<GameController>(world);
 
@@ -65,6 +66,17 @@ void Game::processEvents() {
 void Game::update() {
     if (!isGameOver) {
         gameController->update();
+        int actualScore = score->getScore();
+        float scoreSpeed = 1000.0f;
+
+        if (displayedScore < actualScore) {
+            displayedScore += static_cast<int>(scoreSpeed * Logic::Stopwatch::getInstance().getDeltaTime());
+            if (displayedScore > actualScore) {
+                displayedScore = actualScore;
+            }
+        }
+
+        scoreText.setString("Score: " + std::to_string(displayedScore));
 
         float cameraY = world->getCamera().getY();
         if (world->getPlayer()->getCoords().second > cameraY + window.getSize().y / 2) {
@@ -83,6 +95,7 @@ void Game::handleGameOver() {
     gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
                              400 - gameOverText.getGlobalBounds().height / 2);
     score->resetScore();
+    scoreText.setString("Score: " + std::to_string(score->getScore()));
 }
 
 void Game::render() {

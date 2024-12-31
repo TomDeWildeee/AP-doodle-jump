@@ -2,18 +2,27 @@
 
 namespace Logic {
 
-Bonus::Bonus(const std::pair<float, float>& coords, BonusType type) : EntityModel(coords), type(type) {}
+Bonus::Bonus(const std::pair<float, float>& coords, BonusType type)
+    : EntityModel(coords), type(type), jetpackDuration(2.0f) {}
 
 void Bonus::update(float deltaTime) {
-    if (!active)
-        return;
+    std::shared_ptr<Player> player = activePlayer.lock();
+    if (active && player) {
+        player->setVelocity({player->getVelocity().first, jetpackForce});
+        jetpackTimer += deltaTime;
+        if (jetpackTimer >= jetpackDuration) {
+            active = false;
+            jetpackTimer = 0.0f;
+            player->jump();
+        }
+    }
     notify();
 }
 
 BonusType Bonus::getType() const { return type; }
 
 void Bonus::activate(const std::shared_ptr<Player>& player) {
-    if (!active)
+    if (active)
         return;
 
     switch (type) {
@@ -21,12 +30,14 @@ void Bonus::activate(const std::shared_ptr<Player>& player) {
         player->jump(5.0f);
         break;
     case BonusType::JETPACK:
-        player->setJetpack(true);
-        player->controlJetpack();
+        activePlayer = player;
+        active = true;
+        jetpackTimer = 0.0f;
+        player->setVelocity({player->getVelocity().first, jetpackForce});
         break;
     }
-    active = false;
     notify();
 }
+bool Bonus::isActive() const { return active; }
 
 } // namespace Logic

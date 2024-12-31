@@ -34,7 +34,7 @@ private:
     float width;
     float height;
     void generateBGTiles(float fromY, float toY);
-    static bool shouldGenerateBonus();
+    static bool shouldGenerateBonus(const std::shared_ptr<Platform>& platform, float playerY);
     bool canPlaceBonus(const std::pair<float, float>& coords);
 };
 

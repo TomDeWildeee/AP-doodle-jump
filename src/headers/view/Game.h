@@ -17,11 +17,12 @@ public:
     void run();
 
 private:
-    // Predefined functions, not sure if they are needed
     void processEvents();
     void update();
     void render();
     void handleGameOver();
+
+    int displayedScore = 0;
 
     sf::RenderWindow window;
     std::shared_ptr<Logic::World> world;

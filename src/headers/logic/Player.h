@@ -12,22 +12,11 @@ public:
     void moveLeft();
     void moveRight();
     void jump(float force = 3.0f);
-    [[nodiscard]] bool isJumping() const;
-
-    void setJetpack(bool b);
-    void controlJetpack();
 
 private:
-    // Test values, not sure if values make sense
     float moveSpeed = 200.0f;
     float jumpForce = -300.0f;
     float gravity = 800.0f;
-    float jetpackForce = -800.0f;
-    float jetpackDuration = 2.0f;
-    float jetpackTimer = 0.0f;
-
-    bool jetpack = false;
-    bool jetpackActive = false;
 };
 
 } // namespace Logic
