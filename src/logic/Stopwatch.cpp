@@ -9,12 +9,12 @@ Stopwatch& Stopwatch::getInstance() {
     return instance;
 }
 
-void Stopwatch::start() { lastTime = std::chrono::high_resolution_clock::now(); }
+void Stopwatch::start() { lastTime = std::chrono::steady_clock::now(); }
 
 float Stopwatch::getDeltaTime() const { return deltaTime; }
 
 void Stopwatch::tick() {
-    auto currentTime = std::chrono::high_resolution_clock::now();
+    auto currentTime = std::chrono::steady_clock::now();
     deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
     lastTime = currentTime;
 }

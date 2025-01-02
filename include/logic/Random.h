@@ -13,6 +13,7 @@ public:
 private:
     Random();
     // Found mt19937 online, not sure if it's the best choice
+    // https://dassencio.org/78
     std::mt19937 generator;
 };
 

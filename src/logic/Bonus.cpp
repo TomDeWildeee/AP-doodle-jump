@@ -42,9 +42,5 @@ void Bonus::activate(const std::shared_ptr<Player>& player) {
     notifyBonusCollected(getType());
 }
 bool Bonus::isActive() const { return active; }
-void Bonus::deactivate() {
-    active = false;
-    notifyEntityUpdate();
-}
 
 } // namespace Logic

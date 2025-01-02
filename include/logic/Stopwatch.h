@@ -17,7 +17,7 @@ private:
     float deltaTime = 0.0f;
 
     // Found high_resolution_clock online, not sure if it's the best choice
-    std::chrono::high_resolution_clock::time_point lastTime;
+    std::chrono::steady_clock::time_point lastTime;
 };
 
 } // namespace Logic

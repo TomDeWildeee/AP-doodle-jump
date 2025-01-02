@@ -14,7 +14,6 @@ public:
 
     void update(float deltaTime) override;
     void activate(const std::shared_ptr<Player>& player);
-    void deactivate();
 
     [[nodiscard]] BonusType getType() const;
     [[nodiscard]] bool isActive() const;
