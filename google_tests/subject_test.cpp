@@ -1,5 +1,5 @@
-#include "../../include/logic/Subject.h"
-#include "../../include/logic/ViewObserver.h"
+#include "../logic/include/Subject.h"
+#include "../logic/include/ViewObserver.h"
 #include <gtest/gtest.h>
 #include <memory>
 

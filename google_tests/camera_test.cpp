@@ -1,4 +1,4 @@
-#include "../../include/logic/Camera.h"
+#include "../logic/include/Camera.h"
 #include <gtest/gtest.h>
 
 TEST(CameraTest, InitialValues) {
