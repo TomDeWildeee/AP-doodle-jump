@@ -67,7 +67,6 @@ void Game::update() {
     if (!isGameOver) {
         gameController->update();
         int actualScore = score->getScore();
-        std::cout << actualScore << std::endl;
         float scoreSpeed = 1000.0f;
 
         if (displayedScore < actualScore) {
