@@ -3,14 +3,13 @@
 #include "../../include/view/BonusView.h"
 #include "../../include/view/PlatformView.h"
 #include "../../include/view/PlayerView.h"
-#include <iostream>
 
 namespace View {
 
 std::shared_ptr<Logic::Player> ConcreteFactory::createPlayer(const std::pair<float, float>& coords) {
     std::shared_ptr<Logic::Player> player = std::make_shared<Logic::Player>(coords);
     std::shared_ptr<PlayerView> playerView = std::make_shared<PlayerView>(player);
-    player->attach(playerView);
+    player->attachViewObserver(playerView);
     views.push_back(playerView);
     return player;
 }
@@ -19,7 +18,7 @@ std::shared_ptr<Logic::Platform> ConcreteFactory::createPlatform(const std::pair
                                                                  Logic::PlatformType type) {
     std::shared_ptr<Logic::Platform> platform = std::make_shared<Logic::Platform>(coords, type);
     std::shared_ptr<PlatformView> platformView = std::make_shared<PlatformView>(platform);
-    platform->attach(platformView);
+    platform->attachViewObserver(platformView);
     views.push_back(platformView);
     return platform;
 }
@@ -27,7 +26,7 @@ std::shared_ptr<Logic::Platform> ConcreteFactory::createPlatform(const std::pair
 std::shared_ptr<Logic::BGTile> ConcreteFactory::createBGTile(const std::pair<float, float>& coords) {
     std::shared_ptr<Logic::BGTile> bgTile = std::make_shared<Logic::BGTile>(coords);
     std::shared_ptr<BGTileView> bgTileView = std::make_shared<BGTileView>(bgTile);
-    bgTile->attach(bgTileView);
+    bgTile->attachViewObserver(bgTileView);
     views.insert(views.begin(), bgTileView);
     return bgTile;
 }
@@ -36,7 +35,7 @@ std::shared_ptr<Logic::Bonus> ConcreteFactory::createBonus(const std::pair<float
                                                            Logic::BonusType type) {
     std::shared_ptr<Logic::Bonus> bonus = std::make_shared<Logic::Bonus>(coords, type);
     std::shared_ptr<BonusView> bonusView = std::make_shared<BonusView>(bonus);
-    bonus->attach(bonusView);
+    bonus->attachViewObserver(bonusView);
     views.push_back(bonusView);
     return bonus;
 }

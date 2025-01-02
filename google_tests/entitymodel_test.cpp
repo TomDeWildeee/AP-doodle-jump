@@ -2,11 +2,11 @@
 #include <gtest/gtest.h>
 #include <memory>
 
-class TestObserver : public Logic::Observer {
+class TestObserver : public Logic::ViewObserver {
 public:
     bool updated = false;
 
-    void update() override { updated = true; }
+    void updateEntityView() override { updated = true; }
 };
 
 class TestEntityModel : public Logic::EntityModel {
@@ -33,7 +33,7 @@ TEST(EntityModelTest, GetVelocity) {
 TEST(EntityModelTest, SetCoords) {
     TestEntityModel entity({10.0f, 20.0f});
     auto observer = std::make_shared<TestObserver>();
-    entity.attach(observer);
+    entity.attachViewObserver(observer);
 
     entity.setCoords({30.0f, 40.0f});
     auto coords = entity.getCoords();
@@ -45,7 +45,7 @@ TEST(EntityModelTest, SetCoords) {
 TEST(EntityModelTest, SetVelocity) {
     TestEntityModel entity({10.0f, 20.0f});
     auto observer = std::make_shared<TestObserver>();
-    entity.attach(observer);
+    entity.attachViewObserver(observer);
 
     entity.setVelocity({5.0f, 15.0f});
     auto velocity = entity.getVelocity();

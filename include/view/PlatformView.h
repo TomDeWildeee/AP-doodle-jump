@@ -1,7 +1,7 @@
 #ifndef DOODLE_JUMP_PLATFORMVIEW_H
 #define DOODLE_JUMP_PLATFORMVIEW_H
 
-#include "../logic/Platform.h"
+#include "../../include/logic/Platform.h"
 #include "EntityView.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>

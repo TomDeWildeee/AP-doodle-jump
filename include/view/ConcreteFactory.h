@@ -2,7 +2,7 @@
 #define DOODLE_JUMP_CONCRETEFACTORY_H
 
 #include "../logic/EntityFactory.h"
-#include "EntityView.h"
+
 namespace View {
 
 class ConcreteFactory : public Logic::EntityFactory {

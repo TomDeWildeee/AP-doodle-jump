@@ -1,4 +1,5 @@
 #include "../../include/logic/Bonus.h"
+#include "../../include/logic/Player.h"
 
 namespace Logic {
 
@@ -16,7 +17,7 @@ void Bonus::update(float deltaTime) {
             player->jump();
         }
     }
-    notify();
+    notifyEntityUpdate();
 }
 
 BonusType Bonus::getType() const { return type; }
@@ -28,6 +29,7 @@ void Bonus::activate(const std::shared_ptr<Player>& player) {
     switch (type) {
     case BonusType::SPRING:
         player->jump(5.0f);
+        active = true;
         break;
     case BonusType::JETPACK:
         activePlayer = player;
@@ -36,8 +38,13 @@ void Bonus::activate(const std::shared_ptr<Player>& player) {
         player->setVelocity({player->getVelocity().first, jetpackForce});
         break;
     }
-    notify();
+    notifyEntityUpdate();
+    notifyBonusCollected(getType());
 }
 bool Bonus::isActive() const { return active; }
+void Bonus::deactivate() {
+    active = false;
+    notifyEntityUpdate();
+}
 
 } // namespace Logic

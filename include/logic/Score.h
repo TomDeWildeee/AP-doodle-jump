@@ -2,16 +2,17 @@
 #define DOODLE_JUMP_SCORE_H
 
 #include "Bonus.h"
-#include "Observer.h"
+#include "Platform.h"
+#include "Player.h"
+#include "ViewObserver.h"
 namespace Logic {
 
-class Score : public Observer {
+class Score : public ScoreObserver {
 public:
     Score();
-    void update() override;
-
-    void onNewHeight(float height);
-    void onBonusCollected(BonusType bonusType);
+    void updateHeightScore(float height) override;
+    void updateBonusScore(BonusType bonusType) override;
+    void updatePlatformReuseScore(PlatformType platformType) override;
 
     [[nodiscard]] int getScore() const;
     [[nodiscard]] int getHighScore() const;
@@ -22,6 +23,7 @@ private:
     int score = 0;
     int highScore = 0;
     float maxHeight = 0.0f;
+    std::weak_ptr<Player> player;
 };
 
 } // namespace Logic

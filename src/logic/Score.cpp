@@ -5,13 +5,7 @@ namespace Logic {
 
 Score::Score() = default;
 
-void Score::update() {
-    if (score > highScore) {
-        highScore = score;
-    }
-};
-
-void Score::onNewHeight(float height) {
+void Score::updateHeightScore(float height) {
     float absHeight = std::abs(height);
     if (absHeight > maxHeight) {
         int newScore = (int)(absHeight - maxHeight);
@@ -21,7 +15,7 @@ void Score::onNewHeight(float height) {
     }
 }
 
-void Score::onBonusCollected(BonusType bonusType) {
+void Score::updateBonusScore(BonusType bonusType) {
     switch (bonusType) {
     case BonusType::JETPACK:
         score += 700;
@@ -39,6 +33,20 @@ int Score::getHighScore() const { return highScore; }
 void Score::resetScore() {
     score = 0;
     maxHeight = 0;
+}
+void Score::updatePlatformReuseScore(PlatformType platformType) {
+    switch (platformType) {
+    case PlatformType::STATIC:
+        score -= 500;
+        break;
+    case PlatformType::TEMPORARY:
+        break;
+    default:
+        score -= 200;
+        break;
+    }
+
+    highScore = std::max(score, highScore);
 }
 
 } // namespace Logic

@@ -5,8 +5,7 @@
 #include "BGTile.h"
 #include "Bonus.h"
 #include "Platform.h"
-#include "Player.h"
-#include <memory>
+
 namespace Logic {
 
 class EntityFactory {

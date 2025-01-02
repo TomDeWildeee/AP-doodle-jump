@@ -7,12 +7,12 @@
 
 namespace View {
 
-class EntityView : public Logic::Observer {
+class EntityView : public Logic::ViewObserver {
 public:
     explicit EntityView(const std::shared_ptr<Logic::EntityModel>& model);
     ~EntityView() override;
 
-    void update() override;
+    void updateEntityView() override;
     virtual void draw(sf::RenderWindow& window) = 0;
     [[nodiscard]] bool isOffScreen(float maxY) const;
 

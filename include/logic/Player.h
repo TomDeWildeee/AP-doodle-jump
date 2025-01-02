@@ -11,7 +11,10 @@ public:
     void update(float deltaTime) override;
     void moveLeft();
     void moveRight();
-    void jump(float force = 3.0f);
+    void jump(float force = 2.5f);
+
+    void bonusCollected(BonusType bonusType, bool isActive);
+    void platformReuse(PlatformType platformType);
 
 private:
     float moveSpeed = 200.0f;

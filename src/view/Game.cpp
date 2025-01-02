@@ -2,7 +2,7 @@
 #include "../../include/logic/Stopwatch.h"
 #include "../../include/view/BGTileView.h"
 #include "../../include/view/PlatformView.h"
-#include <iostream>
+
 namespace View {
 Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
     window.setFramerateLimit(144);
@@ -24,7 +24,8 @@ Game::Game() : window(sf::VideoMode(480, 800), "Doodle Jump") {
 
     factory = std::make_shared<ConcreteFactory>();
     score = std::make_shared<Logic::Score>();
-    world = std::make_shared<Logic::World>(480, 800, factory, score);
+    world = std::make_shared<Logic::World>(480, 800, factory);
+    world->getPlayer()->attachScoreObserver(score);
     scoreText.setString("Score: 0");
     scoreText.setPosition(240 - scoreText.getGlobalBounds().width / 2, 0);
 
@@ -49,7 +50,8 @@ void Game::processEvents() {
             window.close();
         } else if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::R && isGameOver) {
-                world = std::make_shared<Logic::World>(480, 800, factory, score);
+                world = std::make_shared<Logic::World>(480, 800, factory);
+                world->getPlayer()->attachScoreObserver(score);
                 gameController = std::make_unique<GameController>(world);
                 isGameOver = false;
             }
@@ -65,11 +67,17 @@ void Game::update() {
     if (!isGameOver) {
         gameController->update();
         int actualScore = score->getScore();
+        std::cout << actualScore << std::endl;
         float scoreSpeed = 1000.0f;
 
         if (displayedScore < actualScore) {
             displayedScore += static_cast<int>(scoreSpeed * Logic::Stopwatch::getInstance().getDeltaTime());
             if (displayedScore > actualScore) {
+                displayedScore = actualScore;
+            }
+        } else if (displayedScore > actualScore) {
+            displayedScore -= static_cast<int>(scoreSpeed * Logic::Stopwatch::getInstance().getDeltaTime());
+            if (displayedScore < actualScore) {
                 displayedScore = actualScore;
             }
         }

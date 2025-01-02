@@ -16,7 +16,8 @@ public:
     [[nodiscard]] bool isActive() const;
     [[nodiscard]] float getAlpha() const;
 
-    // For disappearing platforms
+    void incrementJumps();
+    [[nodiscard]] int getTimesJumpedOn() const;
 
 private:
     PlatformType type;
@@ -28,6 +29,8 @@ private:
     float moveSpeed = 100.0f;
     float disappearTimer = 3.0f;
     float timeElapsed;
+
+    int timesJumpedOn = 0;
 };
 
 } // namespace Logic

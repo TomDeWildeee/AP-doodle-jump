@@ -12,10 +12,10 @@ const std::pair<float, float>& EntityModel::getVelocity() const { return velocit
 
 void EntityModel::setCoords(const std::pair<float, float>& pair) {
     EntityModel::coords = pair;
-    notify();
+    notifyEntityUpdate();
 }
 void EntityModel::setVelocity(const std::pair<float, float>& pair) {
     EntityModel::velocity = pair;
-    notify();
+    notifyEntityUpdate();
 }
 } // namespace Logic

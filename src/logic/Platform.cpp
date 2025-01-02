@@ -1,5 +1,6 @@
 #include "../../include/logic/Platform.h"
 #include <cmath>
+#include <utility>
 
 namespace Logic {
 
@@ -36,7 +37,7 @@ void Platform::update(float deltaTime) {
         break;
     }
 
-    notify();
+    notifyEntityUpdate();
 }
 
 PlatformType Platform::getType() const { return type; }
@@ -45,6 +46,11 @@ float Platform::getAlpha() const { return alpha; }
 
 void Platform::deActivate() {
     active = false;
-    notify();
+    notifyEntityUpdate();
 }
+
+void Platform::incrementJumps() { timesJumpedOn++; }
+
+int Platform::getTimesJumpedOn() const { return timesJumpedOn; }
+
 } // namespace Logic

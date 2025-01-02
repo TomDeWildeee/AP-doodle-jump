@@ -1,5 +1,6 @@
 #include <utility>
 
+#include "../../include/logic/Player.h"
 #include "../../include/view/GameController.h"
 
 namespace View {

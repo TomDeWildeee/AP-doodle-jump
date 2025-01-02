@@ -29,6 +29,9 @@ SET(SRC main.cpp
         logic/World.cpp
         view/GameController.cpp
         logic/Subject.cpp
+        ../include/logic/ViewObserver.h
+        ../include/logic/ViewObserver.h
+        ../include/logic/ScoreObserver.h
 )
 ADD_EXECUTABLE(code ${SRC})
 

@@ -6,7 +6,7 @@ EntityView::EntityView(const std::shared_ptr<Logic::EntityModel>& model) : model
 
 EntityView::~EntityView() = default;
 
-void EntityView::update() {
+void EntityView::updateEntityView() {
     if (auto modelPtr = model.lock()) {
         updateView(modelPtr);
     }

@@ -1,5 +1,4 @@
 #include "../../include/view/PlatformView.h"
-#include <iostream>
 
 namespace View {
 

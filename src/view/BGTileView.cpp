@@ -1,5 +1,4 @@
 #include "../../include/view/BGTileView.h"
-#include <iostream>
 
 namespace View {
 

@@ -1,21 +1,16 @@
 #include "../../include/logic/World.h"
 #include "../../include/logic/Random.h"
 #include "../../include/logic/Stopwatch.h"
-#include "../../include/view/PlatformView.h"
-#include <algorithm>
-#include <iostream>
 
 namespace Logic {
 
 const float TILE_SIZE = 20.0f;
 const float MIN_DISTANCE = 30.0f;
 
-World::World(float width, float height, const std::shared_ptr<EntityFactory>& factory,
-             const std::shared_ptr<Score>& score)
-    : factory(factory), score(score), width(width), height(height) {
+World::World(float width, float height, const std::shared_ptr<EntityFactory>& factory)
+    : factory(factory), width(width), height(height) {
 
     player = factory->createPlayer({width / 2, height / 2});
-    player->attach(score);
 
     camera = std::make_unique<Camera>(width, height);
 
@@ -62,8 +57,7 @@ void World::update() {
         for (const auto& platform : platforms) {
             if (platform->getCoords().second < highestYCoord) {
                 highestYCoord = platform->getCoords().second;
-
-                score->onNewHeight(highestYCoord);
+                player->notifyHeight(highestYCoord);
             }
         }
     }
@@ -116,6 +110,10 @@ void World::checkCollisions() {
             float horizontalDistance = std::abs(px - platX);
 
             if (verticalDistance < 20 && horizontalDistance < 60) {
+                platform->incrementJumps();
+                if (platform->getTimesJumpedOn() > 1) {
+                    player->platformReuse(platform->getType());
+                }
                 player->jump();
 
                 if (platform->getType() == PlatformType::TEMPORARY) {
@@ -138,9 +136,8 @@ void World::checkCollisions() {
         float horizontalDistance = std::abs(px - bonusX);
 
         if (verticalDistance < 30 && horizontalDistance < 30) {
-            score->onBonusCollected(bonus->getType());
+            player->bonusCollected(bonus->getType(), bonus->isActive());
             bonus->activate(player);
-
             break;
         }
     }
@@ -163,11 +160,10 @@ PlatformType getRandomPlatformType(float randValue) {
     return PlatformType::STATIC;
 }
 
-// Took me ages to figure out and get good
 void World::generatePlatforms(float fromY, float toY) {
     Random& random = Random::getInstance();
 
-    float heightFactor = std::min((-fromY / 5000.0f), 1.0f);
+    float heightFactor = std::min((-fromY / 50000.0f), 100.0f);
 
     struct PlatformPos {
         float x, y;

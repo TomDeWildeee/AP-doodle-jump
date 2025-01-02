@@ -1,8 +1,6 @@
 #ifndef DOODLE_JUMP_GAME_H
 #define DOODLE_JUMP_GAME_H
 
-#include "../logic/Score.h"
-#include "../logic/World.h"
 #include "ConcreteFactory.h"
 #include "GameController.h"
 #include "SFML/Graphics.hpp"

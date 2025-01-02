@@ -9,8 +9,7 @@ namespace Logic {
 
 class World {
 public:
-    World(float width, float height, const std::shared_ptr<EntityFactory>& factory,
-          const std::shared_ptr<Score>& score);
+    World(float width, float height, const std::shared_ptr<EntityFactory>& factory);
     ~World();
     void update();
     void generatePlatforms(float fromY, float toY);
@@ -28,7 +27,6 @@ private:
     std::vector<std::shared_ptr<Platform>> platforms;
     std::vector<std::shared_ptr<Bonus>> bonuses;
     std::vector<std::shared_ptr<BGTile>> bgTiles;
-    std::shared_ptr<Score> score;
     std::unique_ptr<Camera> camera;
 
     float width;
