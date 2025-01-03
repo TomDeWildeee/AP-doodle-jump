@@ -14,8 +14,9 @@ void Camera::update(float newY) {
     minY += difference * 0.1f * deltaTime;
 }
 
-bool Camera::isVisible(float givenY) const { return givenY >= minY - height / 2 && givenY <= minY + height / 2; }
+bool Camera::isVisible(float givenY) const { return givenY < y + bufferZone; }
 
 float Camera::getY() const { return y; }
+float Camera::getBufferzone() const { return bufferZone; }
 
 } // namespace Logic

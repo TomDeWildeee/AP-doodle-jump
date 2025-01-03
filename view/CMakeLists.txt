@@ -1,3 +1,16 @@
+# If needed, download SFML
+#FetchContent_Declare(
+#        sfml
+#        GIT_REPOSITORY "https://github.com/SFML/SFML.git"
+#        GIT_TAG        "2.5.1"
+#)
+#
+#FetchContent_GetProperties(sfml)
+#if(NOT sfml_POPULATED)
+#    FetchContent_Populate(sfml)
+#    add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
+#endif()
+
 if (WIN32)
     set(SFML_STATIC_LIBRARIES TRUE)
     set(SFML_DIR "C:/SFML-2.5.1/lib/cmake/SFML")
@@ -6,6 +19,7 @@ elseif (UNIX)
     set(SFML_DIR "/usr/lib/cmake/SFML")
     find_package(SFML 2.5 COMPONENTS graphics window system network audio REQUIRED)
 endif ()
+
 
 SET(VIEW_SOURCES
         src/main.cpp

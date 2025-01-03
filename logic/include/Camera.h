@@ -40,12 +40,19 @@ public:
      */
     [[nodiscard]] float getY() const;
 
+    /**
+     * @brief Gets the buffer zone for visibility checks
+     * @return Buffer zone size
+     */
+    [[nodiscard]] float getBufferzone() const;
+
 private:
     float width;
     float height;
     float y;
     float minY;
     float maxY;
+    float bufferZone = height / 2 + 200.0f;
 };
 
 } // namespace Logic

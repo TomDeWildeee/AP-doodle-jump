@@ -2,6 +2,7 @@
 #include "../include/Random.h"
 #include "../include/Stopwatch.h"
 #include <algorithm>
+#include <iostream>
 
 namespace Logic {
 
@@ -204,33 +205,31 @@ void World::generatePlatforms(float fromY, float toY) {
 }
 
 void World::cleanup() {
-    float cameraY = camera->getY();
-    float bufferZone = height / 2 + 200.0f;
 
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(),
-                                   [cameraY, bufferZone](const std::shared_ptr<Platform>& platform) {
+                                   [this](const std::shared_ptr<Platform>& platform) {
                                        if (!platform->isActive())
                                            return true;
                                        auto y = platform->getCoords().second;
-                                       return y > cameraY + bufferZone;
+                                       return !camera->isVisible(y);
                                    }),
                     platforms.end());
 
     bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(),
-                                 [cameraY, bufferZone](const std::shared_ptr<Bonus>& bonus) {
+                                 [this](const std::shared_ptr<Bonus>& bonus) {
                                      auto y = bonus->getCoords().second;
-                                     return (y > cameraY + bufferZone && !bonus->isActive());
+                                     return (!camera->isVisible(y) && !bonus->isActive());
                                  }),
                   bonuses.end());
 
     bgTiles.erase(std::remove_if(bgTiles.begin(), bgTiles.end(),
-                                 [cameraY, bufferZone](const std::shared_ptr<BGTile>& tile) {
+                                 [this](const std::shared_ptr<BGTile>& tile) {
                                      auto y = tile->getCoords().second;
-                                     return y > cameraY + bufferZone;
+                                     return !camera->isVisible(y);
                                  }),
                   bgTiles.end());
 
-    factory->cleanupViews(cameraY + bufferZone);
+    factory->cleanupViews(camera->getY() + camera->getBufferzone());
 }
 
 bool World::canPlaceBonus(const std::pair<float, float>& coords) {
