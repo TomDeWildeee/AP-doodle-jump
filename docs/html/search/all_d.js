@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['platform_0',['Platform',['../class_logic_1_1_platform.html',1,'Logic::Platform'],['../class_logic_1_1_platform.html#a4f1b32fc4af15973749aed5cf4ad77ab',1,'Logic::Platform::Platform()']]],
+  ['platform_2ecpp_1',['Platform.cpp',['../_platform_8cpp.html',1,'']]],
+  ['platform_2eh_2',['Platform.h',['../_platform_8h.html',1,'']]],
+  ['platformreuse_3',['platformReuse',['../class_logic_1_1_player.html#aece25a820a62f04cea68627f0b3b9ebc',1,'Logic::Player']]],
+  ['platforms_4',['platforms',['../class_logic_1_1_world.html#a904019351ba54b2c69c6559b925a1757',1,'Logic::World']]],
+  ['platformtype_5',['PlatformType',['../namespace_logic.html#a00c16bfa9ed5932390f8d5114ebe1184',1,'Logic']]],
+  ['platformview_6',['PlatformView',['../class_view_1_1_platform_view.html#a95e16839bda462b6c3e9f6dcdf9aee8a',1,'View::PlatformView::PlatformView()'],['../class_view_1_1_platform_view.html',1,'View::PlatformView']]],
+  ['platformview_2ecpp_7',['PlatformView.cpp',['../_platform_view_8cpp.html',1,'']]],
+  ['platformview_2eh_8',['PlatformView.h',['../_platform_view_8h.html',1,'']]],
+  ['player_9',['Player',['../class_logic_1_1_player.html',1,'Logic::Player'],['../class_logic_1_1_player.html#ab25d340d33c44b69ef5ca2d2efebdef5',1,'Logic::Player::Player()']]],
+  ['player_10',['player',['../class_logic_1_1_score.html#a9b1431b683e5dcc2b5d22ebf3e4a246f',1,'Logic::Score::player'],['../class_logic_1_1_world.html#a406aade0e8024b63dfff7e249e586dd2',1,'Logic::World::player']]],
+  ['player_2ecpp_11',['Player.cpp',['../_player_8cpp.html',1,'']]],
+  ['player_2eh_12',['Player.h',['../_player_8h.html',1,'']]],
+  ['playerview_13',['PlayerView',['../class_view_1_1_player_view.html#a86ed0dfcfae4b40e94181eaffe1a75e1',1,'View::PlayerView::PlayerView()'],['../class_view_1_1_player_view.html',1,'View::PlayerView']]],
+  ['playerview_2ecpp_14',['PlayerView.cpp',['../_player_view_8cpp.html',1,'']]],
+  ['playerview_2eh_15',['PlayerView.h',['../_player_view_8h.html',1,'']]],
+  ['processevents_16',['processEvents',['../class_view_1_1_game.html#a48ec42752b3b857e01d89b1351e07731',1,'View::Game']]]
+];

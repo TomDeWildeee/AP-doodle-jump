@@ -1,0 +1,23 @@
+# Project settings
+PROJECT_NAME           = "Doodle_Jump_AP"
+PROJECT_NUMBER         = "1.0.0"
+PROJECT_BRIEF         = "Doodle Jump game implementation in C++ using SFML for AP course"
+
+# Output settings
+OUTPUT_DIRECTORY      = "@CMAKE_CURRENT_SOURCE_DIR@/docs"
+HTML_OUTPUT          = html
+
+# Input settings
+INPUT                 = "@CMAKE_CURRENT_SOURCE_DIR@/logic" \
+                        "@CMAKE_CURRENT_SOURCE_DIR@/view"
+RECURSIVE             = YES
+FILE_PATTERNS         = *.h *.cpp
+
+# HTML settings
+HTML_EXTRA_STYLESHEET = "@AWESOME_CSS_DIR@/doxygen-awesome.css"
+
+# Other settings
+GENERATE_LATEX        = NO
+EXTRACT_ALL          = YES
+EXTRACT_PRIVATE      = YES
+EXTRACT_STATIC       = YES

@@ -1,3 +1,8 @@
+/**
+ * @file Game.h
+ * @brief Main game class managing game loop and state
+ */
+
 #ifndef DOODLE_JUMP_GAME_H
 #define DOODLE_JUMP_GAME_H
 
@@ -8,16 +13,43 @@
 
 namespace View {
 
+/**
+ * @class Game
+ * @brief Manages main game loop, rendering and state
+ */
 class Game {
 public:
+    /**
+     * @brief Constructs game with specified frame rate
+     * @param frameRate Target frames per second
+     */
     explicit Game(int frameRate);
     ~Game();
+
+    /**
+     * @brief Starts game loop
+     */
     void run();
 
 private:
+    /**
+     * @brief Processes input events
+     */
     void processEvents();
+
+    /**
+     * @brief Updates game state
+     */
     void update();
+
+    /**
+     * @brief Renders game state
+     */
     void render();
+
+    /**
+     * @brief Handles game over state
+     */
     void handleGameOver();
 
     int displayedScore = 0;

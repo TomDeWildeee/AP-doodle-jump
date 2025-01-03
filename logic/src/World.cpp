@@ -138,7 +138,7 @@ void World::checkCollisions() {
     }
 }
 
-PlatformType getRandomPlatformType(float randValue) {
+PlatformType World::getRandomPlatformType(float randValue) {
     std::vector<std::pair<PlatformType, float>> weightedTypes = {{PlatformType::STATIC, 80.0f},
                                                                  {PlatformType::TEMPORARY, 10.0f},
                                                                  {PlatformType::HORIZONTAL, 5.0f},

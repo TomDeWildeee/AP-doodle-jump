@@ -14,8 +14,6 @@ void Camera::update(float newY) {
     minY += difference * 0.1f * deltaTime;
 }
 
-void Camera::worldToScreen(float& givenX, float& givenY) const { givenY = height / 2 - (givenY - minY); }
-
 bool Camera::isVisible(float givenY) const { return givenY >= minY - height / 2 && givenY <= minY + height / 2; }
 
 float Camera::getY() const { return y; }

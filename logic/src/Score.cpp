@@ -20,6 +20,7 @@ void Score::readHighScore() {
 void Score::writeHighScore() const {
     std::ofstream file("highscore.txt");
     if (file.is_open()) {
+
         file << highScore;
         file.close();
     }

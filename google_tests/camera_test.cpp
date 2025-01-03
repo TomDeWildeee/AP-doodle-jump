@@ -20,13 +20,6 @@ TEST(CameraTest, UpdateYPositionHigher) {
     EXPECT_NEAR(camera.getY(), -100, 1e-5);
 }
 
-TEST(CameraTest, WorldToScreenConversion) {
-    Logic::Camera camera(800, 600);
-    float x = 0, y = 100;
-    camera.worldToScreen(x, y);
-    EXPECT_NEAR(y, 200, 1e-5);
-}
-
 TEST(CameraTest, VisibilityCheck) {
     Logic::Camera camera(800, 600);
     EXPECT_TRUE(camera.isVisible(0));
