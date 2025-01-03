@@ -19,15 +19,15 @@ Game::Game(int frameRate) : window(sf::VideoMode(480, 800), "Doodle Jump") {
     gameOverText.setCharacterSize(48);
     gameOverText.setFillColor(sf::Color::Red);
     gameOverText.setString("Game Over!\nPress R to restart");
-    gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
-                             400 - gameOverText.getGlobalBounds().height / 2);
+    gameOverText.setPosition(window.getSize().x / 2 - gameOverText.getGlobalBounds().width / 2,
+                             window.getSize().y / 2 - gameOverText.getGlobalBounds().height / 2);
 
     factory = std::make_shared<ConcreteFactory>();
     score = std::make_shared<Logic::Score>();
     world = std::make_shared<Logic::World>(480, 800, factory);
     world->getPlayer()->attachScoreObserver(score);
     scoreText.setString("Score: 0");
-    scoreText.setPosition(240 - scoreText.getGlobalBounds().width / 2, 0);
+    scoreText.setPosition(window.getSize().x / 2 - scoreText.getGlobalBounds().width / 2, 0);
 
     gameController = std::make_unique<GameController>(world);
 
@@ -97,14 +97,14 @@ void Game::handleGameOver() {
     gameOverText.setString("Game Over!\nScore: " + std::to_string(score->getScore()) +
                            "\nHigh Score: " + std::to_string(score->getHighScore()) + "\nPress R to Restart");
 
-    gameOverText.setPosition(240 - gameOverText.getGlobalBounds().width / 2,
-                             400 - gameOverText.getGlobalBounds().height / 2);
+    gameOverText.setPosition(window.getSize().x / 2 - gameOverText.getGlobalBounds().width / 2,
+                             window.getSize().y / 2 - gameOverText.getGlobalBounds().height / 2);
 
     gameOverBackground.setSize(
         sf::Vector2f(gameOverText.getGlobalBounds().width + 40, gameOverText.getGlobalBounds().height + 40));
 
-    gameOverBackground.setPosition(220 - gameOverText.getGlobalBounds().width / 2,
-                                   400 - gameOverText.getGlobalBounds().height / 2);
+    gameOverBackground.setPosition((window.getSize().x / 2 - 20) - gameOverText.getGlobalBounds().width / 2,
+                                   (window.getSize().y / 2) - gameOverText.getGlobalBounds().height / 2);
 
     gameOverBackground.setOutlineColor(sf::Color::Black);
     gameOverBackground.setOutlineThickness(2.0f);
@@ -118,7 +118,7 @@ void Game::render() {
     window.clear();
     sf::View view = window.getDefaultView();
     Logic::Camera camera = world->getCamera();
-    view.setCenter(240, camera.getY());
+    view.setCenter(window.getSize().x / 2, camera.getY());
     window.setView(view);
 
     for (const auto& entityView : factory->getViews()) {

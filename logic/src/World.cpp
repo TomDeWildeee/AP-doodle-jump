@@ -72,11 +72,11 @@ void World::update() {
     float topOfView = cameraY - height / 2;
 
     if (highestBGTileYCoord > topOfView - 100) {
-        generateBGTiles(highestBGTileYCoord, topOfView - 800);
+        generateBGTiles(highestBGTileYCoord, topOfView - height);
     }
 
     if (highestYCoord > topOfView - 300) {
-        generatePlatforms(highestYCoord - 240, topOfView - 800);
+        generatePlatforms(highestYCoord - width / 2, topOfView - height);
 
         for (const auto& platform : platforms) {
             if (shouldGenerateBonus(platform, playerY)) {
