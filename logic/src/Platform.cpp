@@ -15,7 +15,12 @@ void Platform::update(float deltaTime) {
 
     switch (type) {
     case PlatformType::HORIZONTAL:
-        coords.first = initialX + std::sin(timeElapsed * moveSpeed * 0.015f) * moveDistance;
+        coords.first += moveSpeed * deltaTime;
+
+        // 45 is half the width of the platform, 480 is the width of the window
+        if (coords.first <= 45 || coords.first >= 480 - 45) {
+            moveSpeed = -moveSpeed;
+        }
         break;
 
     case PlatformType::VERTICAL:
