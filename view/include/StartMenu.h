@@ -16,6 +16,7 @@ private:
     sf::RenderWindow window;
     sf::Font font;
     int selectedFramerate = 60;
+    int highScore = 0;
     bool startGame = false;
 
     struct Button {

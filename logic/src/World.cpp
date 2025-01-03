@@ -31,9 +31,9 @@ void World::update() {
     float playerY = player->getCoords().second;
 
     if (playerX < 25) {
-        player->setCoords({25, player->getCoords().second});
-    } else if (playerX > width - 25) {
         player->setCoords({width - 25, player->getCoords().second});
+    } else if (playerX > width - 25) {
+        player->setCoords({25, player->getCoords().second});
     }
 
     for (auto& bgTile : bgTiles) {

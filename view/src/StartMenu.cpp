@@ -1,11 +1,20 @@
 #include "../include/StartMenu.h"
 #include <SFML/Window/Event.hpp>
+#include <fstream>
 
 namespace View {
 
 StartMenu::StartMenu() : window(sf::VideoMode(400, 800), "Doodle Jump Menu") {
     if (!font.loadFromFile("../../assets/DoodleJump.ttf")) {
         throw std::runtime_error("Could not load font");
+    }
+
+    std::ifstream file("highscore.txt");
+    if (file.is_open()) {
+        file >> highScore;
+        file.close();
+    } else {
+        highScore = 0;
     }
 
     createButtons();
@@ -49,7 +58,16 @@ StartMenu::StartMenu() : window(sf::VideoMode(400, 800), "Doodle Jump Menu") {
         currentFPS.setCharacterSize(24);
         currentFPS.setFillColor(sf::Color::Black);
         currentFPS.setPosition((400 - currentFPS.getLocalBounds().width) / 2, 150);
+
+        sf::Text highScoreText;
+        highScoreText.setFont(font);
+        highScoreText.setString("Highscore: " + std::to_string(highScore));
+        highScoreText.setCharacterSize(24);
+        highScoreText.setFillColor(sf::Color::Black);
+        highScoreText.setPosition((400 - highScoreText.getLocalBounds().width) / 2, 115);
+
         window.draw(currentFPS);
+        window.draw(highScoreText);
 
         for (const auto& button : buttons) {
             window.draw(button.shape);
