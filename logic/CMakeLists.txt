@@ -10,6 +10,7 @@ set(LOGIC_SOURCES
         src/Stopwatch.cpp
         src/Subject.cpp
         src/World.cpp
+        src/GameException.cpp
 )
 
 add_library(LogicLib STATIC

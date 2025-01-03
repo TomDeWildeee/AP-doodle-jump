@@ -1,6 +1,7 @@
 #include "../include/World.h"
 #include "../include/Random.h"
 #include "../include/Stopwatch.h"
+#include "GameException.h"
 #include <algorithm>
 #include <iostream>
 
@@ -16,9 +17,25 @@ World::World(float width, float height, const std::shared_ptr<EntityFactory>& fa
 
     camera = std::make_unique<Camera>(width, height);
 
+    if (!player) {
+        throw NotInitializedException("Player not initialized");
+    }
+
+    if (!camera) {
+        throw NotInitializedException("Camera not initialized");
+    }
+
     player->jump();
     generatePlatforms(height, 0);
     generateBGTiles(height, 0);
+
+    if (platforms.empty()) {
+        throw NotInitializedException("No platforms generated");
+    }
+
+    if (bgTiles.empty()) {
+        throw NotInitializedException("No background tiles generated");
+    }
 }
 
 void World::update() {
@@ -159,7 +176,7 @@ PlatformType World::getRandomPlatformType(float randValue) {
 void World::generatePlatforms(float fromY, float toY) {
     Random& random = Random::getInstance();
 
-    float heightFactor = std::min((-fromY / 50000.0f), 100.0f);
+    float heightFactor = std::min((-fromY / 100000.0f), 100.0f);
 
     struct PlatformPos {
         float x, y;

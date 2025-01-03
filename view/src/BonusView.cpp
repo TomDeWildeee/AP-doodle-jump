@@ -1,13 +1,14 @@
 #include "../include/BonusView.h"
+#include "GameException.h"
 
 namespace View {
 
 BonusView::BonusView(const std::shared_ptr<Logic::Bonus>& bonus) : EntityView(bonus) {
     if (!springTexture.loadFromFile("../../assets/spring.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("spring.png");
     }
     if (!jetpackTexture.loadFromFile("../../assets/jetpack.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("jetpack.png");
     }
     updateTexture(bonus->getType());
 }

@@ -1,19 +1,20 @@
 #include "../include/PlatformView.h"
+#include "GameException.h"
 
 namespace View {
 
 void PlatformView::loadTextures() {
     if (!greenTexture.loadFromFile("../../assets/green_platform.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("green_platform.png");
     }
     if (!yellowTexture.loadFromFile("../../assets/yellow_platform.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("yellow_platform.png");
     }
     if (!blueTexture.loadFromFile("../../assets/blue_platform.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("blue_platform.png");
     }
     if (!whiteTexture.loadFromFile("../../assets/white_platform.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("white_platform.png");
     }
 }
 

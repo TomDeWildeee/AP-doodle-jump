@@ -1,13 +1,14 @@
 #include "../include/PlayerView.h"
+#include "GameException.h"
 
 namespace View {
 
 PlayerView::PlayerView(const std::shared_ptr<Logic::Player>& player) : EntityView(player) {
     if (!rightDoodleTexture.loadFromFile("../../assets/doodle_right.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("doodle_right.png");
     }
     if (!leftDoodleTexture.loadFromFile("../../assets/doodle_left.png")) {
-        throw std::runtime_error("Could not load doodle texture");
+        throw Logic::ResourceLoadException("doodle_left.png");
     }
 
     sprite.setTexture(rightDoodleTexture);

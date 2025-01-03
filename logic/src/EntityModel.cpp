@@ -1,4 +1,6 @@
 #include "../include/EntityModel.h"
+#include "../include/GameException.h"
+#include <cmath>
 
 namespace Logic {
 
@@ -11,6 +13,9 @@ const std::pair<float, float>& EntityModel::getCoords() const { return coords; }
 const std::pair<float, float>& EntityModel::getVelocity() const { return velocity; }
 
 void EntityModel::setCoords(const std::pair<float, float>& pair) {
+    if (std::isnan(coords.first) || std::isnan(coords.second)) {
+        throw InvalidCoordinatesException("NaN detected");
+    }
     EntityModel::coords = pair;
     notifyEntityUpdate();
 }
