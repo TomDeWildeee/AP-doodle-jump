@@ -17,6 +17,7 @@ var searchData=
   ['bonusview_14',['BonusView',['../class_view_1_1_bonus_view.html#afa9348bf4a513fe7e970ed4c9b5dc438',1,'View::BonusView::BonusView()'],['../class_view_1_1_bonus_view.html',1,'View::BonusView']]],
   ['bonusview_2ecpp_15',['BonusView.cpp',['../_bonus_view_8cpp.html',1,'']]],
   ['bonusview_2eh_16',['BonusView.h',['../_bonus_view_8h.html',1,'']]],
-  ['button_17',['Button',['../struct_view_1_1_start_menu_1_1_button.html',1,'View::StartMenu']]],
-  ['buttons_18',['buttons',['../class_view_1_1_start_menu.html#a100a22d6e984d618dc976b5a04a75090',1,'View::StartMenu']]]
+  ['bufferzone_17',['bufferZone',['../class_logic_1_1_camera.html#a3dddd5f5dfb030b049de752dbdb50616',1,'Logic::Camera']]],
+  ['button_18',['Button',['../struct_view_1_1_start_menu_1_1_button.html',1,'View::StartMenu']]],
+  ['buttons_19',['buttons',['../class_view_1_1_start_menu.html#a100a22d6e984d618dc976b5a04a75090',1,'View::StartMenu']]]
 ];
