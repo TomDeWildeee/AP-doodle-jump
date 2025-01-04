@@ -1,4 +1,4 @@
-#include "GameException.h"
+#include "../include/GameException.h"
 
 #include <utility>
 

@@ -5,6 +5,7 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_executable(Google_Tests_run subject_test.cpp ../../logic/src/Subject.cpp ../../logic/include/ViewObserver.h
         ../../logic/include/ScoreObserver.h
+        ../../logic/src/GameException.cpp
         ../../logic/src/EntityModel.cpp
         ../../logic/src/Camera.cpp
         ../../logic/src/Stopwatch.cpp
