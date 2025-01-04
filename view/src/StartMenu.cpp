@@ -1,14 +1,17 @@
 #include "../include/StartMenu.h"
+#include "GameException.h"
 #include <SFML/Window/Event.hpp>
 #include <fstream>
 
 namespace View {
 
 StartMenu::StartMenu() : window(sf::VideoMode(400, 800), "Doodle Jump Menu") {
+    // Load font and throw exception if it fails
     if (!font.loadFromFile("../../assets/DoodleJump.ttf")) {
-        throw std::runtime_error("Could not load font");
+        throw Logic::ResourceLoadException("DoodleJump.ttf");
     }
 
+    // Load highscore from file or set to 0 if file does not exist
     std::ifstream file("highscore.txt");
     if (file.is_open()) {
         file >> highScore;
@@ -17,20 +20,28 @@ StartMenu::StartMenu() : window(sf::VideoMode(400, 800), "Doodle Jump Menu") {
         highScore = 0;
     }
 
+    // Create buttons
     createButtons();
 
+    // Main menu loop
     while (window.isOpen()) {
         sf::Event event{};
+
+        // Process events
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
 
+            // Handle mouse click events and set selected framerate or start game
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
+                // Check if mouse is inside button and set selected framerate or start game
                 for (const auto& button : buttons) {
+                    // Check if mouse is inside button
                     if (button.shape.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                        // If button is framerate button, set selected framerate, otherwise start game
                         if (button.isFramerateButton) {
                             selectedFramerate = button.framerate;
                         } else {
@@ -42,8 +53,10 @@ StartMenu::StartMenu() : window(sf::VideoMode(400, 800), "Doodle Jump Menu") {
             }
         }
 
+        // Clear window, draw background yellow color
         window.clear(sf::Color::Yellow);
 
+        // Draw title, currently selected FPS, highscore, and buttons
         sf::Text title;
         title.setFont(font);
         title.setString("DOODLE JUMP");
@@ -74,11 +87,14 @@ StartMenu::StartMenu() : window(sf::VideoMode(400, 800), "Doodle Jump Menu") {
             window.draw(button.text);
         }
 
+        // Finally display window
         window.display();
     }
 }
 
 void StartMenu::createButtons() {
+
+    // Create buttons for each framerate
     std::vector<int> framerates = {30, 60, 120, 144, 240};
     float buttonWidth = 200;
     float buttonHeight = 50;
@@ -86,6 +102,7 @@ void StartMenu::createButtons() {
     float startY = 200;
 
     // auto/int gave me a warning
+    // Loop through framerates and create buttons
     for (size_t i = 0; i < framerates.size(); i++) {
         Button button;
         button.shape.setSize(sf::Vector2f(buttonWidth, buttonHeight));
@@ -99,6 +116,7 @@ void StartMenu::createButtons() {
         button.text.setCharacterSize(24);
         button.text.setFillColor(sf::Color::Black);
 
+        // Set text position based on button size and text size to center text
         auto bounds = button.text.getLocalBounds();
         button.text.setPosition(100 + (buttonWidth - bounds.width) / 2,
                                 startY + i * (buttonHeight + spacing) + (buttonHeight - bounds.height) / 2);
@@ -109,6 +127,7 @@ void StartMenu::createButtons() {
         buttons.push_back(button);
     }
 
+    // Create start game button
     Button startButton;
     startButton.shape.setSize(sf::Vector2f(buttonWidth, buttonHeight));
     startButton.shape.setPosition(100, startY + framerates.size() * (buttonHeight + spacing) + spacing * 2);
@@ -121,6 +140,7 @@ void StartMenu::createButtons() {
     startButton.text.setCharacterSize(24);
     startButton.text.setFillColor(sf::Color::Black);
 
+    // Set text position based on button size and text size to center text
     auto bounds = startButton.text.getLocalBounds();
     startButton.text.setPosition(100 + (buttonWidth - bounds.width) / 2,
                                  startY + framerates.size() * (buttonHeight + spacing) + spacing * 2 +

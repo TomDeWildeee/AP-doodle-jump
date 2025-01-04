@@ -7,10 +7,16 @@ Bonus::Bonus(const std::pair<float, float>& coords, BonusType type)
     : EntityModel(coords), type(type), jetpackDuration(2.0f) {}
 
 void Bonus::update(float deltaTime) {
+
+    // Get active player and check if bonus is active and player exists
     std::shared_ptr<Player> player = activePlayer.lock();
     if (active && player) {
+
+        // Set player velocity to jetpack force and update jetpack timer
         player->setVelocity({player->getVelocity().first, jetpackForce});
         jetpackTimer += deltaTime;
+
+        // If jetpack timer is greater than or equal to jetpack duration, deactivate jetpack and make player jump
         if (jetpackTimer >= jetpackDuration) {
             active = false;
             jetpackTimer = 0.0f;

@@ -8,11 +8,15 @@ Platform::Platform(const std::pair<float, float>& coords, PlatformType type)
     : EntityModel(coords), type(type), initialX(coords.first), initialY(coords.second), timeElapsed(0.0f) {}
 
 void Platform::update(float deltaTime) {
+
+    // Check if platform is active
     if (!active)
         return;
 
+    // Update time elapsed
     timeElapsed += deltaTime;
 
+    // Update platform based on type
     switch (type) {
     case PlatformType::HORIZONTAL:
         coords.first += moveSpeed * deltaTime;
@@ -24,6 +28,7 @@ void Platform::update(float deltaTime) {
         break;
 
     case PlatformType::VERTICAL:
+        // Move platform up and down based on sine function
         coords.second = initialY + std::cos(timeElapsed * moveSpeed * 0.015f) * moveDistance;
         break;
 

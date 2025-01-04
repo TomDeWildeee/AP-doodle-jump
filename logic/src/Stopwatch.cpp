@@ -14,6 +14,8 @@ void Stopwatch::start() { lastTime = std::chrono::steady_clock::now(); }
 float Stopwatch::getDeltaTime() const { return deltaTime; }
 
 void Stopwatch::tick() {
+
+    // Compute delta time between frames and update last time to current time for next frame calculation
     auto currentTime = std::chrono::steady_clock::now();
     deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
     lastTime = currentTime;

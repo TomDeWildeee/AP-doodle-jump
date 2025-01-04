@@ -4,6 +4,7 @@
 #include <iostream>
 
 int main() {
+    // Start the game loop and catch exceptions
     try {
         View::StartMenu menu;
         if (menu.shouldStartGame()) {
