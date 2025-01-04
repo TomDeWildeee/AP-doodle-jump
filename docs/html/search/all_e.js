@@ -6,6 +6,7 @@ var searchData=
   ['readhighscore_3',['readHighScore',['../class_logic_1_1_score.html#ab5816e7c210c751da4db2b173074cb0a',1,'Logic::Score']]],
   ['render_4',['render',['../class_view_1_1_game.html#a4e072b3dc6aa0ac9734b4c5df006017b',1,'View::Game']]],
   ['resetscore_5',['resetScore',['../class_logic_1_1_score.html#a089319457c41ccc61ff95659984126b6',1,'Logic::Score']]],
-  ['rightdoodletexture_6',['rightDoodleTexture',['../class_view_1_1_player_view.html#ae7135e7d0c7c8f58c71e815094ad7d07',1,'View::PlayerView']]],
-  ['run_7',['run',['../class_view_1_1_game.html#a6a39ff345777835db262ed5c507dc397',1,'View::Game']]]
+  ['resourceloadexception_6',['ResourceLoadException',['../class_logic_1_1_resource_load_exception.html',1,'Logic::ResourceLoadException'],['../class_logic_1_1_resource_load_exception.html#ae234185eb7789a3951abca4f2d3fff40',1,'Logic::ResourceLoadException::ResourceLoadException()']]],
+  ['rightdoodletexture_7',['rightDoodleTexture',['../class_view_1_1_player_view.html#ae7135e7d0c7c8f58c71e815094ad7d07',1,'View::PlayerView']]],
+  ['run_8',['run',['../class_view_1_1_game.html#a6a39ff345777835db262ed5c507dc397',1,'View::Game']]]
 ];

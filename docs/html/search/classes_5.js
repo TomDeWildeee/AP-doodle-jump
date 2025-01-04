@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['random_0',['Random',['../class_logic_1_1_random.html',1,'Logic']]]
+  ['notinitializedexception_0',['NotInitializedException',['../class_logic_1_1_not_initialized_exception.html',1,'Logic']]]
 ];
